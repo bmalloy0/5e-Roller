@@ -720,7 +720,8 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int x = loc[1]; x < loc[1] + 3; x++)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] + 3, loc[2] + 4] == Map.Blank)
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.PassageIP;
                         }
                         else if (size < 8)
                         {
@@ -731,7 +732,8 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int x = loc[1] - ((size / 2) - 1); x < loc[1] + (size / 2) + 3; x++)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] + (size / 2) + 3, loc[2] + 4 + (size / 2)] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] + (size / 2) + 3, loc[2] + 4 + (size / 2)] == Map.Blank)
+                                dungeon[loc[0], loc[1] + (size / 2) + 3, loc[2] + 4 + (size / 2)] = Map.PassageIP;
                         }
                         else if (size == 8)
                         {
@@ -756,8 +758,8 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.Passage;
-
-                            dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] + 7, loc[2] + 8] == Map.Blank)
+                                dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.PassageIP;
                         }
                         else if (size == 9)
                         {
@@ -787,7 +789,8 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.Pillar;
-                            dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] + 7, loc[2] + 8] == Map.Blank)
+                                dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.PassageIP;
                         }
                         else if (size == 11)
                         {
@@ -816,7 +819,8 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                         else
                                             dungeon[loc[0], x, y] = Map.PassageBalcony;
-                            dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] + 7, loc[2] + 8] == Map.Blank)
+                                dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.PassageIP;
                         }
                         else
                         {
@@ -827,7 +831,8 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int x = loc[1] - 3; x < loc[1] + 7; x++)
                                         dungeon[loc[0], x, y] = Map.PassageTall;
-                            dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] + 7, loc[2] + 8] == Map.Blank)
+                                dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.PassageIP;
                         }
                         break;
                     case Direction.Up:
@@ -839,7 +844,8 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int x = loc[1]; x > loc[1] - 3; x--)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] - 3, loc[2] - 4] == Map.Blank)
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.PassageIP;
                         }
                         else if (size < 8)
                         {
@@ -850,7 +856,8 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int x = loc[1] - ((size / 2) - 1) - 2; x < loc[1] + (size / 2) + 1; x++)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] - (size / 2) - 3, loc[2] - 3 - (size / 2)] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] - (size / 2) - 2, loc[2] - 3 - (size / 2)] == Map.Blank)
+                                dungeon[loc[0], loc[1] - (size / 2) - 2, loc[2] - 3 - (size / 2)] = Map.PassageIP;
                         }
                         else if (size == 8)
                         {
@@ -875,7 +882,8 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] - 6, loc[2] - 7] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] - 6, loc[2] - 7] == Map.Blank)
+                                dungeon[loc[0], loc[1] - 6, loc[2] - 7] = Map.PassageIP;
                         }
                         else if (size == 9)
                         {
@@ -910,7 +918,8 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] - 6, loc[2] - 7] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] - 6, loc[2] - 7] == Map.Blank)
+                                dungeon[loc[0], loc[1] - 6, loc[2] - 7] = Map.PassageIP;
                         }
                         else if (size == 11)
                         {
@@ -939,7 +948,8 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                         else
                                             dungeon[loc[0], x, y] = Map.PassageBalcony;
-                            dungeon[loc[0], loc[1] - 6, loc[2] - 7] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] - 6, loc[2] - 7] == Map.Blank)
+                                dungeon[loc[0], loc[1] - 6, loc[2] - 7] = Map.PassageIP;
                         }
                         else
                         {
@@ -950,7 +960,8 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int x = loc[1] - 3; x < loc[1] + 7; x++)
                                         dungeon[loc[0], x, y] = Map.PassageTall;
-                            dungeon[loc[0], loc[1] + 7, loc[2] - 8] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] + 7, loc[2] - 8] == Map.Blank)
+                                dungeon[loc[0], loc[1] + 7, loc[2] - 8] = Map.PassageIP;
                         }
                         break;
                     case Direction.Right:
@@ -962,7 +973,8 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int y = loc[2]; y > loc[2] - 3; y--)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] + 4, loc[2] - 3] = Map.PassageIP;
+                            if (dungeon[loc[0], loc[1] + 4, loc[2] - 3] == Map.Blank)
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 3] = Map.PassageIP;
                         }
                         else if (size < 8)
                         {
@@ -1317,6 +1329,7 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.PassageBalcony;
+                            dungeon[loc[0], loc[1] - 6, loc[2] + 8] = Map.PassageIP;
                         }
                         break;
                     case Direction.Up:
@@ -1339,7 +1352,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int x = loc[1] - ((size / 2) - 1); x < loc[1] + (size / 2) + 3; x++)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] + (size / 2) + 2, loc[2] + (size / 2) + 3] = Map.PassageIP;
+                            dungeon[loc[0], loc[1] + (size / 2) + 2, loc[2] - (size / 2) - 3] = Map.PassageIP;
                         }
                         else if (size == 8)
                         {
@@ -1447,7 +1460,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int y = loc[2]; y < loc[2] + 3; y++)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.PassageIP;
+                            dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.PassageIP;
                         }
                         else if (size < 8)
                         {
@@ -1458,7 +1471,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int y = loc[2] - (size / 2); y < loc[2] + (size / 2) + 2; y++)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] - 4 - (size / 2), loc[2] - (size / 2) - 2] = Map.PassageIP;
+                            dungeon[loc[0], loc[1] + 3 + (size / 2), loc[2] + (size / 2) + 2] = Map.PassageIP;
                         }
                         else if (size == 8)
                         {
@@ -1483,7 +1496,7 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] - 8, loc[2] + 6] = Map.PassageIP;
+                            dungeon[loc[0], loc[1] + 8, loc[2] + 6] = Map.PassageIP;
                         }
                         else if (size == 9)
                         {
@@ -1518,7 +1531,7 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] - 8, loc[2] + 6] = Map.PassageIP;
+                            dungeon[loc[0], loc[1] + 8, loc[2] + 6] = Map.PassageIP;
                         }
                         else if (size == 10)
                         {
@@ -1529,6 +1542,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int y = loc[2] - 4; y < loc[2] + 6; y++)
                                         dungeon[loc[0], x, y] = Map.PassageTall;
+                            dungeon[loc[0], loc[1] + 8, loc[2] + 6] = Map.PassageIP;
                         }
                         else
                         {
@@ -1553,7 +1567,7 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.PassageBalcony;
-                            dungeon[loc[0], loc[1] - 8, loc[2] + 6] = Map.PassageIP;
+                            dungeon[loc[0], loc[1] + 8, loc[2] + 6] = Map.PassageIP;
                         }
                         break;
                     case Direction.Left:
@@ -1644,6 +1658,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int y = loc[2] - 6; y < loc[2] + 4; y++)
                                         dungeon[loc[0], x, y] = Map.PassageTall;
+                            dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.PassageIP;
                         }
                         else
                         {
@@ -1668,6 +1683,7 @@ public class DungeonGenerator : MonoBehaviour {
                                                 dungeon[loc[0], x, y] = Map.Passage;
                                         else
                                             dungeon[loc[0], x, y] = Map.PassageBalcony;
+                            dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.PassageIP;
                         }
                         break;
                 }
@@ -1746,12 +1762,12 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 5; y++)
-                            for (int x = loc[2] - 2; x < loc[2] + 4; x++)
+                            for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 5; y--)
-                            for (int x = loc[2] - 2; x < loc[2] + 4; x++)
+                            for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
                         break;
                     case Direction.Left:
@@ -2600,7 +2616,7 @@ public class DungeonGenerator : MonoBehaviour {
                         if (size == 1)
                             dungeon[loc[0], loc[1] + 1, loc[2] - 3] = Map.Door;
                         else
-                            dungeon[loc[0], loc[1] + (size / 2), loc[2] - 3] = Map.Door;
+                            dungeon[loc[0], loc[1] + (size / 2) + 1, loc[2] - 3] = Map.Door;
                         break;
                     case Direction.Left:
                         if (size == 1)
@@ -2660,7 +2676,7 @@ public class DungeonGenerator : MonoBehaviour {
                         if (size == 1)
                             dungeon[loc[0], loc[1] + 1, loc[2] - 3] = Map.PassageIP;
                         else
-                            dungeon[loc[0], loc[1] + (size / 2), loc[2] - 3] = Map.PassageIP;
+                            dungeon[loc[0], loc[1] + (size / 2) + 1, loc[2] - 3] = Map.PassageIP;
                         break;
                     case Direction.Left:
                         if (size == 1)
@@ -3282,20 +3298,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y < loc[2] + 7; y++)
-                                for (int x = loc[1] - 1; x < loc[1] + 2; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int y = loc[2]; y < loc[2] + 7; y++)
+                                    for (int x = loc[1] - 1; x < loc[1] + 2; x++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         else
                         {
@@ -3304,20 +3323,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y < loc[2] + 7; y++)
-                                for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int y = loc[2]; y < loc[2] + 7; y++)
+                                    for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         break;
                     case Direction.Up:
@@ -3328,20 +3350,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y > loc[2] - 7; y--)
-                                for (int x = loc[1] - 1; x < loc[1] + 2; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int y = loc[2]; y > loc[2] - 7; y--)
+                                    for (int x = loc[1] - 1; x < loc[1] + 2; x++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         else
                         {
@@ -3350,20 +3375,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y > loc[2] - 7; y--)
-                                for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int y = loc[2]; y > loc[2] - 7; y--)
+                                    for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         break;
                     case Direction.Left:
@@ -3374,20 +3402,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x > loc[1] - 7; x--)
-                                for (int y = loc[2] - 1; y < loc[2] + 2; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int x = loc[1]; x > loc[1] - 7; x--)
+                                    for (int y = loc[2] - 1; y < loc[2] + 2; y++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         else
                         {
@@ -3396,20 +3427,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x > loc[1] - 7; x--)
-                                for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int x = loc[1]; x > loc[1] - 7; x--)
+                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         break;
                     case Direction.Right:
@@ -3420,20 +3454,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x < loc[1] + 7; x++)
-                                for (int y = loc[2] - 1; y < loc[2] + 2; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int x = loc[1]; x < loc[1] + 7; x++)
+                                    for (int y = loc[2] - 1; y < loc[2] + 2; y++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         else
                         {
@@ -3442,20 +3479,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x < loc[1] + 7; x++)
-                                for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int x = loc[1]; x < loc[1] + 7; x++)
+                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         break;
                 }
@@ -3475,20 +3515,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y < loc[2] + 5; y++)
-                                for (int x = loc[1] - 1; x < loc[1] + 2; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int y = loc[2]; y < loc[2] + 5; y++)
+                                    for (int x = loc[1] - 1; x < loc[1] + 2; x++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         else
                         {
@@ -3497,20 +3540,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y < loc[2] + 5; y++)
-                                for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int y = loc[2]; y < loc[2] + 5; y++)
+                                    for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         break;
                     case Direction.Up:
@@ -3521,20 +3567,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y > loc[2] - 5; y--)
-                                for (int x = loc[1] - 1; x < loc[1] + 2; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int y = loc[2]; y > loc[2] - 5; y--)
+                                    for (int x = loc[1] - 1; x < loc[1] + 2; x++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         else
                         {
@@ -3543,20 +3592,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y > loc[2] - 5; y--)
-                                for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int y = loc[2]; y > loc[2] - 5; y--)
+                                    for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         break;
                     case Direction.Left:
@@ -3567,20 +3619,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x > loc[1] - 5; x--)
-                                for (int y = loc[2] - 1; y < loc[2] + 2; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int x = loc[1]; x > loc[1] - 5; x--)
+                                    for (int y = loc[2] - 1; y < loc[2] + 2; y++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         else
                         {
@@ -3589,20 +3644,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x > loc[1] - 5; x--)
-                                for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int x = loc[1]; x > loc[1] - 5; x--)
+                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         break;
                     case Direction.Right:
@@ -3613,20 +3671,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x < loc[1] + 5; x++)
-                                for (int y = loc[2] - 1; y < loc[2] + 2; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int x = loc[1]; x < loc[1] + 5; x++)
+                                    for (int y = loc[2] - 1; y < loc[2] + 2; y++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         else
                         {
@@ -3635,20 +3696,23 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x < loc[1] + 5; x++)
-                                for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if ((x == loc[1]) && (y == loc[2]))
+                            else
+                            {
+                                for (int x = loc[1]; x < loc[1] + 5; x++)
+                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
                                     {
-                                        //This is the host tile. Ignore it when validating
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if ((x == loc[1]) && (y == loc[2]))
+                                        {
+                                            //This is the host tile. Ignore it when validating
+                                        }
+                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                        {
+                                            Debug.Log(id + " is invalid");
+                                            return false;
+                                        }
                                     }
-                                    else if (dungeon[loc[0], x, y] != Map.Blank)
-                                    {
-                                        Debug.Log(id + " is invalid");
-                                        return false;
-                                    }
-                                }
+                            }
                         }
                         break;
                 }
@@ -3668,34 +3732,37 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y < loc[2] + 6; y++)
-                                if (y < loc[2] + 3)
-                                {
-                                    for (int x = loc[1] - 1; x < loc[1] + 2; x++)
+                            else
+                            {
+                                for (int y = loc[2]; y < loc[2] + 6; y++)
+                                    if (y < loc[2] + 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int x = loc[1] - 1; x < loc[1] + 2; x++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
-                                        {
-                                            Debug.Log(id + " is invalid");
-                                            return false;
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            {
+                                                Debug.Log(id + " is invalid");
+                                                return false;
+                                            }
                                         }
                                     }
-                                }
-                                else
-                                    for (int x = loc[1] - 1; x < loc[1] + 4; x++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                    else
+                                        for (int x = loc[1] - 1; x < loc[1] + 4; x++)
                                         {
-                                            Debug.Log(id + " is invalid");
-                                            return false;
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            {
+                                                Debug.Log(id + " is invalid");
+                                                return false;
+                                            }
                                         }
-                                    }
 
+                            }
                         }
                         else
                         {
@@ -3704,33 +3771,40 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y < loc[2] + size + 4; y++)
-                                if (y < loc[2] + 3)
+                            else
+                            {
+                                for (int y = loc[2]; y < loc[2] + size + 4; y++)
                                 {
-                                    for (int x = loc[1] - check; x < loc[1] + check + 1; x++)
+                                    if (y < loc[2] + 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int x = loc[1] - check; x < loc[1] + check + 1; x++)
                                         {
-                                            //This is the host tile. Ignore it when validating
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            {
+                                                Debug.Log(id + " is invalid");
+                                                return false;
+                                            }
                                         }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                    }
+                                    else
+                                    {
+                                        for (int x = loc[1] - check; x < loc[1] + check + 4; x++)
                                         {
-                                            Debug.Log(id + " is invalid");
-                                            return false;
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            {
+                                                Debug.Log(id + " is invalid");
+                                                return false;
+                                            }
                                         }
                                     }
                                 }
-                                else
-                                    for (int x = loc[1] - check; x < loc[1] + check + 4; x++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                        {
-                                            Debug.Log(id + " is invalid");
-                                            return false;
-                                        }
-                                    }
+                            }
                         }
                         break;
                     case Direction.Up:
@@ -3741,37 +3815,42 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int y = loc[2]; y > loc[2] + 6; y++)
+                            else
                             {
-                                if (y > loc[2] + 3)
+                                for (int y = loc[2]; y > loc[2] - 6; y--)
                                 {
-                                    for (int x = loc[1] - 1; x < loc[1] + 2; x++)
+                                    if (y > loc[2] - 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int x = loc[1] - 1; x < loc[1] + 2; x++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
-                                        {
-                                            Debug.Log(id + " is invalid");
-                                            return false;
-                                        }
-                                    }
-                                }
-                                else
-                                    for (int x = loc[1] - 3; x < loc[1] + 2; x++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        {
-                                            Debug.Log(id + " is invalid");
-                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             {
                                                 Debug.Log(id + " is invalid");
                                                 return false;
                                             }
                                         }
                                     }
+                                    else
+                                    {
+                                        for (int x = loc[1] - 3; x < loc[1] + 2; x++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            {
+                                                Debug.Log(id + " is invalid");
+                                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                                {
+                                                    Debug.Log(id + " is invalid");
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                         else
@@ -3784,36 +3863,42 @@ public class DungeonGenerator : MonoBehaviour {
                                     return false;
                                 }
                             }
-                            for (int y = loc[2]; y > loc[2] - size - 5; y--)
-                                if (y > loc[2] - 3)
+                            else
+                            {
+                                for (int y = loc[2]; y > loc[2] - size - 5; y--)
                                 {
-                                    for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
+                                    if (y > loc[2] - 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
-                                        {
-                                            Debug.Log(id + " is invalid");
-                                            return false;
-                                        }
-                                    }
-                                }
-                                else
-                                    for (int x = loc[1] - check - 2; x < loc[1] + check + 2; x++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        {
-                                            Debug.Log(id + " is invalid");
-                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             {
                                                 Debug.Log(id + " is invalid");
                                                 return false;
                                             }
                                         }
                                     }
+                                    else
+                                    {
+                                        for (int x = loc[1] - check - 2; x < loc[1] + check + 2; x++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            {
+                                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                                {
+                                                    Debug.Log(id + " is invalid");
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                         break;
                     case Direction.Left:
@@ -3824,36 +3909,43 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 return false;
                             }
-                            for (int x = loc[1]; x > loc[1] - 6; x--)
-                                if (x > loc[1] - 3)
+                            else
+                            {
+                                for (int x = loc[1]; x > loc[1] - 6; x--)
                                 {
-                                    for (int y = loc[2] - 1; y < loc[2] + 2; y++)
+                                    if (x > loc[1] - 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int y = loc[2] - 1; y < loc[2] + 2; y++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
-                                        {
-                                            Debug.Log(id + " is invalid");
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             {
                                                 Debug.Log(id + " is invalid");
-                                                return false;
+                                                {
+                                                    Debug.Log(id + " is invalid");
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int y = loc[2] - 1; y < loc[2] + 4; y++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            {
+                                                Debug.Log(id + " is invalid");
+                                                { Debug.Log(id + " is invalid"); return false; }
                                             }
                                         }
                                     }
                                 }
-                                else
-                                    for (int y = loc[2] - 1; y < loc[2] + 4; y++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                        {
-                                            Debug.Log(id + " is invalid");
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                        }
-                                    }
+                            }
                         }
                         else
                         {
@@ -3862,86 +3954,107 @@ public class DungeonGenerator : MonoBehaviour {
                                 Debug.Log(id + " is invalid");
                                 { Debug.Log(id + " is invalid"); return false; }
                             }
-                            for (int x = loc[1]; x > loc[1] - size - 5; x--)
-                                if (x > loc[1] - 3)
+                            else
+                            {
+                                for (int x = loc[1]; x > loc[1] - size - 5; x--)
                                 {
-                                    for (int y = loc[2] - check - 1; y < loc[2] + check; y++)
+                                    if (x > loc[1] - 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
                                         {
-                                            //This is the host tile. Ignore it when validating
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            {
+                                                Debug.Log(id + " is invalid");
+                                                return false;
+                                            }
                                         }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                    }
+                                    else
+                                    {
+                                        for (int y = loc[2] - check - 1; y < loc[2] + check + 3; y++)
                                         {
-                                            Debug.Log(id + " is invalid");
-                                            { Debug.Log(id + " is invalid"); return false; }
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            {
+                                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                                { Debug.Log(id + " is invalid"); return false; }
+                                            }
                                         }
                                     }
                                 }
-                                else
-                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 2; y++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        {
-                                            if (dungeon[loc[0], x, y] != Map.Blank)
-                                                { Debug.Log(id + " is invalid"); return false; }
-                                        }
-                                    }
+                            }
                         }
                         break;
                     case Direction.Right:
                         if (size == 1)
                         {
                             if (((loc[2] - 3 < 0) || (loc[2] + 1 >= mapDepth)) || (loc[1] + 5 >= mapWidth))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int x = loc[1]; x < loc[1] + 6; x++)
-                                if (x < loc[1] + 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int x = loc[1]; x < loc[1] + 6; x++)
                                 {
-                                    for (int y = loc[2] - 1; y < loc[2] + 2; y++)
+                                    if (x < loc[1] + 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int y = loc[2] - 1; y < loc[2] + 2; y++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int y = loc[2] - 3; y < loc[2] + 2; y++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int y = loc[2] - 3; y < loc[2] + 2; y++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         else
                         {
                             if (((loc[2] - check - 3 < 0) || (loc[2] + check >= mapDepth)) || (loc[1] + size + 4 >= mapWidth))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int x = loc[1]; x < loc[1] + size + 5; x++)
-                                if (x < loc[1] + 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int x = loc[1]; x < loc[1] + size + 5; x++)
                                 {
-                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
+                                    if (x < loc[1] + 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int y = loc[2] - check - 3; y < loc[2] + check + 1; y++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int y = loc[2] - check - 3; y < loc[2] + check + 1; y++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         break;
                 }
@@ -3956,216 +4069,272 @@ public class DungeonGenerator : MonoBehaviour {
                         if (size == 1)
                         {
                             if (((loc[1] - 3 < 0) || (loc[1] + 1 >= mapWidth)) || (loc[2] + 5 >= mapDepth))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int y = loc[2]; y < loc[2] + 6; y++)
-                                if (y < loc[2] + 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int y = loc[2]; y < loc[2] + 6; y++)
                                 {
-                                    for (int x = loc[1] - 1; x < loc[1] + 2; x++)
+                                    if (y < loc[2] + 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int x = loc[1] - 1; x < loc[1] + 2; x++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int x = loc[1] - 3; x < loc[1] + 2; x++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int x = loc[1] - 3; x < loc[1] + 2; x++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         else
                         {
                             if (((loc[1] - check - 2 < 0) || (loc[1] + check + 1 >= mapWidth)) || (loc[2] + size + 4 >= mapDepth))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int y = loc[2]; y < loc[2] + size + 5; y++)
-                                if (y < loc[2] + 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int y = loc[2]; y < loc[2] + size + 5; y++)
                                 {
-                                    for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
+                                    if (y < loc[2] + 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int x = loc[1] - check; x < loc[1] + check + 2; x++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int x = loc[1] - check - 2; x < loc[1] + check + 2; x++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int x = loc[1] - check - 2; x < loc[1] + check + 2; x++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         break;
                     case Direction.Up:
                         if (size == 1)
                         {
                             if (((loc[1] - 1 < 0) || (loc[1] + 3 >= mapWidth)) || (loc[2] - 5 < 0))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int y = loc[2]; y > loc[2] - 6; y--)
-                                if (y > loc[2] - 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int y = loc[2]; y > loc[2] - 6; y--)
                                 {
-                                    for (int x = loc[1] - 1; x < loc[1] + 2; x++)
+                                    if (y > loc[2] - 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int x = loc[1] - 1; x < loc[1] + 2; x++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int x = loc[1] - 1; x < loc[1] + 4; x++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int x = loc[1] - 1; x < loc[1] + 4; x++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         else
                         {
                             if (((loc[1] - check < 0) || (loc[1] + check + 3 >= mapWidth)) || (loc[2] - size - 4 < 0))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int y = loc[2]; y > loc[2] - size - 5; y--)
-                                if (y > loc[2] - 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int y = loc[2]; y > loc[2] - size - 5; y--)
                                 {
-                                    for (int x = loc[1] - check; x < loc[1] + check + 1; x++)
+                                    if (y > loc[2] - 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int x = loc[1] - check; x < loc[1] + check + 1; x++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int x = loc[1] - check; x < loc[1] + check + 3; x++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int x = loc[1] - check; x < loc[1] + check + 3; x++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         break;
                     case Direction.Left:
                         if (size == 1)
                         {
                             if (((loc[2] - 3 < 0) || (loc[2] + 1 >= mapDepth)) || (loc[1] - 5 < 0))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int x = loc[1]; x > loc[1] - 6; x--)
-                                if (x > loc[1] - 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int x = loc[1]; x > loc[1] - 6; x--)
                                 {
-                                    for (int y = loc[2] - 1; y < loc[2] + 2; y++)
+                                    if (x > loc[1] - 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int y = loc[2] - 1; y < loc[2] + 2; y++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int y = loc[2] - 3; y < loc[2] + 2; y++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int y = loc[2] - 3; y < loc[2] + 2; y++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         else
                         {
                             if (((loc[2] - check - 3 < 0) || (loc[2] + check >= mapDepth)) || (loc[1] - size - 4 < 0))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int x = loc[1]; x > loc[1] - size - 4; x++)
-                                if (x > loc[1] - 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int x = loc[1]; x > loc[1] - size - 4; x++)
                                 {
-                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
+                                    if (x > loc[1] - 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int y = loc[2] - check - 3; y < loc[2] + check + 1; y++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int y = loc[2] - check - 3; y < loc[2] + check + 1; y++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         break;
                     case Direction.Right:
                         if (size == 1)
                         {
                             if (((loc[2] - 1 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] + 5 >= mapWidth))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int x = loc[1]; x < loc[1] + 6; x++)
-                                if (x < loc[1] + 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int x = loc[1]; x < loc[1] + 6; x++)
                                 {
-                                    for (int y = loc[2] - 1; y < loc[2] + 2; y++)
+                                    if (x < loc[1] + 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int y = loc[2] - 1; y < loc[2] + 2; y++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int y = loc[2] - 1; y < loc[2] + 4; y++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int y = loc[2] - 1; y < loc[2] + 4; y++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         else
                         {
                             if (((loc[2] - check - 1 < 0) || (loc[2] + check + 2 >= mapDepth)) || (loc[1] + size + 4 >= mapWidth))
-                                { Debug.Log(id + " is invalid"); return false; }
-                            for (int x = loc[1]; x < loc[1] + size + 5; x++)
-                                if (x < loc[1] + 3)
+                            { Debug.Log(id + " is invalid"); return false; }
+                            else
+                            {
+                                for (int x = loc[1]; x < loc[1] + size + 5; x++)
                                 {
-                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
+                                    if (x < loc[1] + 3)
                                     {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if ((x == loc[1]) && (y == loc[2]))
+                                        for (int y = loc[2] - check - 1; y < loc[2] + check + 1; y++)
                                         {
-                                            //This is the host tile. Ignore it when validating
-                                        }
-                                        else if (dungeon[loc[0], x, y] != Map.Blank)
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if ((x == loc[1]) && (y == loc[2]))
+                                            {
+                                                //This is the host tile. Ignore it when validating
+                                            }
+                                            else if (dungeon[loc[0], x, y] != Map.Blank)
                                             { Debug.Log(id + " is invalid"); return false; }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int y = loc[2] - check - 1; y < loc[2] + check + 3; y++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            { Debug.Log(id + " is invalid"); return false; }
+                                        }
                                     }
                                 }
-                                else
-                                    for (int y = loc[2] - check - 1; y < loc[2] + check + 3; y++)
-                                    {
-                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                        if (dungeon[loc[0], x, y] != Map.Blank)
-                                            { Debug.Log(id + " is invalid"); return false; }
-                                    }
+                            }
                         }
                         break;
                 }
@@ -4178,47 +4347,73 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 2 < 0) || (loc[1] + 3 >= mapWidth)) || (loc[2] + 5 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 6; y++)
-                            for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] + 1; y < loc[2] + 6; y++)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 2 < 0) || (loc[1] + 3 >= mapWidth)) || (loc[2] - 5 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 6; y--)
-                            for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] - 1; y > loc[2] - 6; y--)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 3 < 0) || (loc[2] + 2 >= mapDepth)) || (loc[1] - 5 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 6; x--)
-                            for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] - 1; x > loc[1] - 6; x--)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Right:
                         if (((loc[2] - 3 < 0) || (loc[2] + 2 >= mapDepth)) || (loc[1] + 5 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[2] + 6; x++)
-                            for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                        {
+                            Debug.Log(id + " is invalid");
+                            return false;
+                        }
+                        else
+                        {
+                            for (int x = loc[1] + 1; x < loc[1] + 6; x++)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
-                                    { Debug.Log(id + " is invalid"); return false; }
+                                for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    {
+                                        Debug.Log(id + " is invalid");
+                                        return false;
+                                    }
+                                }
                             }
+                        }
                         break;
                 }
                 break;
@@ -4234,7 +4429,9 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 2 < 0) || (loc[1] + 3 >= mapWidth)) || (loc[2] + 7 >= mapDepth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] + 1; y < loc[2] + 8; y++)
@@ -4256,7 +4453,9 @@ public class DungeonGenerator : MonoBehaviour {
                         if (orient1 == false)
                         {
                             if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] + 5 >= mapDepth))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] + 1; y < loc[2] + 6; y++)
@@ -4285,7 +4484,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Up:
                         if (((loc[1] - 2 < 0) || (loc[1] + 3 >= mapWidth)) || (loc[2] - 7 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] - 1; y > loc[2] - 8; y--)
@@ -4299,6 +4500,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         break;
                                     }
                                 }
+
                                 if (orient1 == false)
                                     break;
                             }
@@ -4307,7 +4509,9 @@ public class DungeonGenerator : MonoBehaviour {
                         if (orient1 == false)
                         {
                             if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] - 5 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] - 1; y > loc[2] - 6; y--)
@@ -4336,7 +4540,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Left:
                         if (((loc[2] - 3 < 0) || (loc[2] + 2 >= mapDepth)) || (loc[1] - 7 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] - 1; x > loc[1] - 8; x--)
@@ -4350,10 +4556,10 @@ public class DungeonGenerator : MonoBehaviour {
                                         break;
                                     }
                                 }
-                            }
 
-                            if (orient1 == false)
-                                break;
+                                if (orient1 == false)
+                                    break;
+                            }
                         }
 
                         if (orient1 == false)
@@ -4362,7 +4568,7 @@ public class DungeonGenerator : MonoBehaviour {
                             { Debug.Log(id + " is invalid"); return false; }
                             else
                             {
-                                for (int x = loc[1] - 1; x < loc[1] - 6; x--)
+                                for (int x = loc[1] - 1; x > loc[1] - 6; x--)
                                 {
                                     for (int y = loc[2] - 4; y < loc[2] + 4; y++)
                                     {
@@ -4389,7 +4595,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Right:
                         if (((loc[2] - 3 < 0) || (loc[2] + 2 >= mapDepth)) || (loc[1] + 7 >= mapWidth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] + 1; x < loc[1] + 8; x++)
@@ -4403,18 +4611,21 @@ public class DungeonGenerator : MonoBehaviour {
                                         break;
                                     }
                                 }
-                            }
 
-                            if (orient1 == false)
-                                break;
+                                if (orient1 == false)
+                                    break;
+                            }
                         }
 
                         if (orient1 == false)
-                            if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] + 5 > mapWidth))
+                        {
+                            if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] + 5 >= mapWidth))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
-                                for (int x = loc[1] + 1; x > loc[1] + 6; x++)
+                                for (int x = loc[1] + 1; x < loc[1] + 6; x++)
                                 {
                                     for (int y = loc[2] - 4; y < loc[2] + 4; y++)
                                     {
@@ -4433,6 +4644,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber2030O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -4450,47 +4662,67 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] + 7 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 8; y++)
-                            for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] + 1; y < loc[2] + 8; y++)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] - 7 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 8; y--)
-                            for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] - 1; y > loc[2] - 8; y--)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] - 7 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 8; x--)
-                            for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] - 1; x > loc[1] - 8; x--)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Right:
                         if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] + 7 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[1] + 8; x++)
-                            for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] + 1; x < loc[1] + 8; x++)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                 }
                 break;
@@ -4506,7 +4738,9 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] + 9 >= mapDepth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] + 1; y < loc[2] + 10; y++)
@@ -4526,8 +4760,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] + 7 >= mapDepth))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] + 1; y < loc[2] + 8; y++)
@@ -4548,6 +4785,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber3040O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -4555,7 +4793,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Up:
                         if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] - 9 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] - 1; y > loc[2] - 10; y--)
@@ -4575,8 +4815,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] - 7 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] - 1; y > loc[2] - 8; y--)
@@ -4597,6 +4840,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber3040O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -4604,7 +4848,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Left:
                         if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] - 9 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] - 1; x > loc[1] - 10; x--)
@@ -4618,18 +4864,21 @@ public class DungeonGenerator : MonoBehaviour {
                                         break;
                                     }
                                 }
-                            }
 
                             if (orient1 == false)
                                 break;
+                            }
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] - 7 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
-                                for (int x = loc[1] - 1; x < loc[1] - 8; x--)
+                                for (int x = loc[1] - 1; x > loc[1] - 8; x--)
                                 {
                                     for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                     {
@@ -4648,6 +4897,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber3040O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -4655,7 +4905,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Right:
                         if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] + 9 >= mapWidth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] + 1; x < loc[1] + 10; x++)
@@ -4678,10 +4930,12 @@ public class DungeonGenerator : MonoBehaviour {
                         if (orient1 == false)
                         {
                             if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] + 7 > mapWidth))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
-                                for (int x = loc[1] + 1; x > loc[1] + 8; x++)
+                                for (int x = loc[1] + 1; x < loc[1] + 8; x++)
                                 {
                                     for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                     {
@@ -4724,47 +4978,67 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] + 9 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 10; y++)
-                            for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] + 1; y < loc[2] + 10; y++)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] - 9 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 10; y--)
-                            for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] - 1; y > loc[2] - 10; y--)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] - 9 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 10; x--)
-                            for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] - 1; x > loc[1] - 10; x--)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Right:
                         if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] + 9 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[1] + 10; x++)
-                            for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] + 1; x < loc[1] + 10; x++)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                 }
                 break;
@@ -4780,7 +5054,9 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 5 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] + 11 >= mapDepth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] + 1; y < loc[2] + 12; y++)
@@ -4800,8 +5076,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[1] - 5 < 0) || (loc[1] + 6 >= mapWidth)) || (loc[2] + 9 >= mapDepth))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] + 1; y < loc[2] + 10; y++)
@@ -4822,6 +5101,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber4050O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -4829,7 +5109,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Up:
                         if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] - 11 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] - 1; y > loc[2] - 12; y--)
@@ -4849,8 +5131,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[1] - 5 < 0) || (loc[1] + 6 >= mapWidth)) || (loc[2] - 9 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] - 1; y > loc[2] - 10; y--)
@@ -4871,6 +5156,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber4050O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -4878,7 +5164,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Left:
                         if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] - 11 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] - 1; x > loc[1] - 12; x--)
@@ -4899,11 +5187,14 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[2] - 6 < 0) || (loc[2] + 5 >= mapDepth)) || (loc[1] - 9 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
-                                for (int x = loc[1] - 1; x < loc[1] - 10; x--)
+                                for (int x = loc[1] - 1; x > loc[1] - 10; x--)
                                 {
                                     for (int y = loc[2] - 6; y < loc[2] + 6; y++)
                                     {
@@ -4922,6 +5213,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber4050O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -4929,7 +5221,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Right:
                         if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] + 11 >= mapWidth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] + 1; x < loc[1] + 12; x++)
@@ -4943,18 +5237,22 @@ public class DungeonGenerator : MonoBehaviour {
                                         break;
                                     }
                                 }
-                            }
 
                             if (orient1 == false)
                                 break;
+                            }
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[2] - 6 < 0) || (loc[2] + 5 >= mapDepth)) || (loc[1] + 9 > mapWidth))
+                            {
                                 orient2 = false;
+                            }
+
                             else
                             {
-                                for (int x = loc[1] + 1; x > loc[1] + 10; x++)
+                                for (int x = loc[1] + 1; x < loc[1] + 10; x++)
                                 {
                                     for (int y = loc[2] - 6; y < loc[2] + 6; y++)
                                     {
@@ -4972,6 +5270,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber4050O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -4994,7 +5293,9 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 5 < 0) || (loc[1] + 6 >= mapWidth)) || (loc[2] + 17 >= mapDepth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] + 1; y < loc[2] + 18; y++)
@@ -5015,8 +5316,12 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[1] - 8 < 0) || (loc[1] + 9 >= mapWidth)) || (loc[2] + 11 >= mapDepth))
+                            {
                                 orient2 = false;
+                            }
+
                             else
                             {
                                 for (int y = loc[2] + 1; y < loc[2] + 12; y++)
@@ -5038,6 +5343,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber3040O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -5045,7 +5351,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Up:
                         if (((loc[1] - 5 < 0) || (loc[1] + 6 >= mapWidth)) || (loc[2] - 17 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] - 1; y > loc[2] - 18; y--)
@@ -5066,8 +5374,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[1] - 8 < 0) || (loc[1] + 9 >= mapWidth)) || (loc[2] - 11 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] - 1; y > loc[2] - 12; y--)
@@ -5089,6 +5400,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber3040O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -5096,7 +5408,9 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Left:
                         if (((loc[2] - 6 < 0) || (loc[2] + 5 >= mapDepth)) || (loc[1] - 17 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] - 1; x > loc[1] - 18; x--)
@@ -5117,8 +5431,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[2] - 9 < 0) || (loc[2] + 8 >= mapDepth)) || (loc[1] - 11 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int x = loc[1] - 1; x > loc[1] - 11; x--)
@@ -5140,13 +5457,17 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber3040O2;
                             }
+                        }
+
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
 
                         break;
                     case Direction.Right:
                         if (((loc[2] - 6 < 0) || (loc[2] + 5 >= mapDepth)) || (loc[1] + 17 >= mapWidth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] + 1; x < loc[1] + 18; x++)
@@ -5167,8 +5488,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (orient1 == false)
+                        {
                             if (((loc[2] - 9 < 0) || (loc[2] + 8 >= mapDepth)) || (loc[1] + 11 > mapWidth))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int x = loc[1] + 1; x > loc[1] + 12; x++)
@@ -5190,6 +5514,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient2)
                                     id = Room.Chamber3040O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
                             { Debug.Log(id + " is invalid"); return false; }
@@ -5208,84 +5533,112 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] + 7 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 8; y++)
-                            if ((y == loc[2] + 1) || (y > loc[2] + 5))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] + 1; y < loc[2] + 8; y++)
                             {
-                                for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                if ((y == loc[2] + 1) || (y > loc[2] + 5))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] - 8 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 8; y--)
-                            if ((y == loc[2] - 1) || (y < loc[2] - 5))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] - 1; y > loc[2] - 8; y--)
                             {
-                                for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                if ((y == loc[2] - 1) || (y < loc[2] - 5))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] - 8 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 8; x--)
-                            if ((x == loc[1] - 1) || (x < loc[1] - 5))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] - 1; x > loc[1] - 8; x--)
                             {
-                                for (int y = loc[2] - 2; y < loc[2] + 4; y++)
+                                if ((x == loc[1] - 1) || (x < loc[1] - 5))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 2; y < loc[2] + 4; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int y = loc[2] - 3; y < loc[2] + 5; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else
-                                for (int y = loc[2] - 3; y < loc[2] + 5; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Right:
                         if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] + 8 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[1] + 8; x++)
-                            if ((x == loc[1] + 1) || (x > loc[1] + 5))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] + 1; x < loc[1] + 8; x++)
                             {
-                                for (int y = loc[2] - 2; y < loc[2] + 4; y++)
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                            }
-                            else
-                                for (int y = loc[2] - 2; y < loc[2] + 4; y++)
+                                if ((x == loc[1] + 1) || (x > loc[1] + 5))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 2; y < loc[2] + 4; y++)
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
                                 }
+                                else
+                                {
+                                    for (int y = loc[2] - 2; y < loc[2] + 4; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                            }
+                        }
                         break;
                 }
                 break;
@@ -5297,123 +5650,151 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 5 < 0) || (loc[1] + 6 >= mapWidth)) || (loc[2] + 11 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 12; y++)
-                            if ((y == loc[2] + 1) || (y > loc[2] + 9))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] + 1; y < loc[2] + 12; y++)
                             {
-                                for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                if ((y == loc[2] + 1) || (y > loc[2] + 9))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((y < loc[2] + 4) || (y > loc[2] + 7))
+                                {
+                                    for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int x = loc[1] - 5; x < loc[1] + 7; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((y < loc[2] + 4) || (y > loc[2] + 7))
-                            {
-                                for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int x = loc[1] - 5; x < loc[1] + 7; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 5 < 0) || (loc[1] + 6 >= mapWidth)) || (loc[2] - 11 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 12; y--)
-                            if ((y == loc[2] - 1) || (y < loc[2] - 9))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] - 1; y > loc[2] - 12; y--)
                             {
-                                for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                if ((y == loc[2] - 1) || (y < loc[2] - 9))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((y > loc[2] - 4) || (y < loc[2] - 7))
+                                {
+                                    for (int x = loc[2] - 4; x < loc[1] + 7; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int x = loc[1] - 5; x < loc[1] + 7; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((y > loc[2] - 4) || (y < loc[2] - 7))
-                            {
-                                for (int x = loc[2] - 4; x < loc[1] + 7; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int x = loc[1] - 5; x < loc[1] + 7; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 6 < 0) || (loc[2] + 5 >= mapDepth)) || (loc[1] - 11 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 12; x--)
-                            if ((x == loc[1] - 1) || (x < loc[1] - 9))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] - 1; x > loc[1] - 12; x--)
                             {
-                                for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                if ((x == loc[1] - 1) || (x < loc[1] - 9))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((x > loc[1] - 4) || (x < loc[1] - 7))
+                                {
+                                    for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int y = loc[2] - 6; y < loc[2] + 6; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((x > loc[1] - 4) || (x < loc[1] - 7))
-                            {
-                                for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Right:
                         if (((loc[2] - 6 < 0) || (loc[2] + 5 >= mapDepth)) || (loc[1] + 11 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[1] + 12; x++)
-                            if ((x == loc[1] + 1) || (x > loc[1] + 9))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] + 1; x < loc[1] + 12; x++)
                             {
-                                for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                if ((x == loc[1] + 1) || (x > loc[1] + 9))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((x < loc[1] + 4) || (x > loc[1] + 7))
+                                {
+                                    for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int y = loc[2] - 6; y < loc[2] + 6; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((x < loc[1] + 4) || (x > loc[1] + 7))
-                            {
-                                for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                 }
                 break;
@@ -5425,123 +5806,151 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] + 9 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 10; y++)
-                            if ((y == loc[2] + 1) || (y >= loc[2] + 8))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] + 1; y < loc[2] + 10; y++)
                             {
-                                for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                if ((y == loc[2] + 1) || (y >= loc[2] + 8))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((y == loc[2] + 2) || (y == loc[2] + 7))
+                                {
+                                    for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((y == loc[2] + 2) || (y == loc[2] + 7))
-                            {
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] - 9 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 10; y--)
-                            if ((y == loc[2] - 1) || (y <= loc[2] - 8))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] - 1; y > loc[2] - 10; y--)
                             {
-                                for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                if ((y == loc[2] - 1) || (y <= loc[2] - 8))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((y == loc[2] - 2) || (y == loc[2] - 7))
+                                {
+                                    for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((y == loc[2] - 2) || (y == loc[2] - 7))
-                            {
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] - 9 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 10; x--)
-                            if ((x == loc[1] - 1) || (x <= loc[1] - 8))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] - 1; x > loc[1] - 10; x--)
                             {
-                                for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                if ((x == loc[1] - 1) || (x <= loc[1] - 8))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((x == loc[1] - 2) || (x == loc[1] - 7))
+                                {
+                                    for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((x == loc[1] - 2) || (x == loc[1] - 7))
-                            {
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                     case Direction.Right:
                         if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] + 9 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[1] + 10; x++)
-                            if ((x == loc[1] + 1) || (x >= loc[1] + 8))
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] + 1; x < loc[1] + 10; x++)
                             {
-                                for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                if ((x == loc[1] + 1) || (x >= loc[1] + 8))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((x == loc[1] + 2) || (x == loc[1] + 7))
+                                {
+                                    for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((x == loc[1] + 2) || (x == loc[1] + 7))
-                            {
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
+                        }
                         break;
                 }
                 break;
@@ -5553,166 +5962,186 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 6 < 0) || (loc[1] + 7 >= mapWidth)) || (loc[2] + 13 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 14; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
                         {
-                            if ((y == loc[2] + 1) || (y > loc[2] + 11))
+                            for (int y = loc[2] + 1; y < loc[2] + 14; y++)
                             {
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                if ((y == loc[2] + 1) || (y > loc[2] + 11))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((y == loc[2] + 2) || (y == loc[2] + 11))
+                                {
+                                    for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((y == loc[2] + 3) || (y == loc[2] + 10))
+                                {
+                                    for (int x = loc[1] - 5; x < loc[1] + 7; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int x = loc[1] - 6; x < loc[1] + 8; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((y == loc[2] + 2) || (y == loc[2] + 11))
-                            {
-                                for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else if ((y == loc[2] + 3) || (y == loc[2] + 10))
-                            {
-                                for (int x = loc[1] - 5; x < loc[1] + 7; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int x = loc[1] - 6; x < loc[1] + 8; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
                         }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 6 < 0) || (loc[1] + 7 >= mapWidth)) || (loc[2] - 13 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 14; y--)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
                         {
-                            if ((y == loc[2] - 1) || (y < loc[2] - 11))
+                            for (int y = loc[2] - 1; y > loc[2] - 14; y--)
                             {
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                if ((y == loc[2] - 1) || (y < loc[2] - 11))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((y == loc[2] - 2) || (y == loc[2] - 11))
+                                {
+                                    for (int x = loc[1] - 4; x < loc[1] + 6; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((y == loc[2] - 3) || (y == loc[2] - 10))
+                                {
+                                    for (int x = loc[1] - 5; x < loc[1] + 7; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int x = loc[1] - 6; x < loc[1] + 8; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((y == loc[2] - 2) || (y == loc[2] - 11))
-                            {
-                                for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else if ((y == loc[2] - 3) || (y == loc[2] - 10))
-                            {
-                                for (int x = loc[1] - 5; x < loc[1] + 7; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int x = loc[1] - 6; x < loc[1] + 8; x++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
                         }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 7 < 0) || (loc[2] + 6 >= mapDepth)) || (loc[1] - 13 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 14; x--)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
                         {
-                            if ((x == loc[1] - 1) || (x < loc[1] - 11))
+                            for (int x = loc[1] - 1; x > loc[1] - 14; x--)
                             {
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                if ((x == loc[1] - 1) || (x < loc[1] - 11))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((x == loc[1] - 2) || (x == loc[1] - 11))
+                                {
+                                    for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((x == loc[1] - 3) || (x == loc[1] - 10))
+                                {
+                                    for (int y = loc[2] - 6; y < loc[2] + 6; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int y = loc[2] - 7; y < loc[2] + 7; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((x == loc[1] - 2) || (x == loc[1] - 11))
-                            {
-                                for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else if ((x == loc[1] - 3) || (x == loc[1] - 10))
-                            {
-                                for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int y = loc[2] - 7; y < loc[2] + 7; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
                         }
                         break; 
                     case Direction.Right:
                         if (((loc[2] - 7 < 0) || (loc[2] + 6 >= mapDepth)) || (loc[1] + 13 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[1] + 14; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
                         {
-                            if ((x == loc[1] + 1) || (x > loc[1] + 11))
+                            for (int x = loc[1] + 1; x < loc[1] + 14; x++)
                             {
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                if ((x == loc[1] + 1) || (x > loc[1] + 11))
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((x == loc[1] + 2) || (x == loc[1] + 11))
+                                {
+                                    for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else if ((x == loc[1] + 3) || (x == loc[1] + 10))
+                                {
+                                    for (int y = loc[2] - 6; y < loc[2] + 6; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int y = loc[2] - 7; y < loc[2] + 7; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                        { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
                             }
-                            else if ((x == loc[1] + 2) || (x == loc[1] + 11))
-                            {
-                                for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else if ((x == loc[1] + 3) || (x == loc[1] + 10))
-                            {
-                                for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
-                            }
-                            else
-                                for (int y = loc[2] - 7; y < loc[2] + 7; y++)
-                                {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
-                                        { Debug.Log(id + " is invalid"); return false; }
-                                }
                         }
                         break;
                 }
@@ -5733,7 +6162,9 @@ public class DungeonGenerator : MonoBehaviour {
                     case Direction.Down:
                         //Test Orientation 1
                         if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] + 13 >= mapDepth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] + 1; y < loc[2] + 14; y++)
@@ -5764,6 +6195,7 @@ public class DungeonGenerator : MonoBehaviour {
                                     }
                                 }
                                 else
+                                {
                                     for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                     {
                                         Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -5773,6 +6205,7 @@ public class DungeonGenerator : MonoBehaviour {
                                             break;
                                         }
                                     }
+                                }
 
                                 //If at any time a location becomes invlaid, end testing on Orientation 1
                                 if (orient1 == false)
@@ -5782,8 +6215,11 @@ public class DungeonGenerator : MonoBehaviour {
 
                         //If Orientation 1 doesn't fit, try Orientation 2, if that works, set new room orientation
                         if (!orient1)
+                        {
                             if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] + 13 >= mapDepth))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] + 1; y < loc[2] + 14; y++)
@@ -5813,6 +6249,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -5822,18 +6259,24 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
 
                                     if (orient2 == false)
                                         break;
                                 }
+
                                 if (orient2)
                                     id = Room.ChamberTrap4060O2;
                             }
+                        }
 
                         //If Orientation 2 doesn't fit, try Orientation 3, if that works, set new room orientation
                         if ((!orient1) && (!orient2))
+                        {
                             if (((loc[1] - 6 < 0) || (loc[1] + 7 >= mapWidth)) || (loc[2] + 9 >= mapDepth))
+                            {
                                 orient3 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] + 1; y < loc[2] + 10; y++)
@@ -5863,6 +6306,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -5872,15 +6316,21 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
                                 }
+
                                 if (orient3)
                                     id = Room.ChamberTrap4060O3;
                             }
+                        }
 
                         //If Orientation 3 doesn't fit, try Orientation 4
-                        if ((!orient1) && (!orient2) && (!orient3))
+                        if (((!orient1) && (!orient2)) && (!orient3))
+                        {
                             if (((loc[1] - 6 < 0) || (loc[1] + 7 >= mapWidth)) || (loc[2] + 9 >= mapDepth))
+                            {
                                 orient4 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] + 1; y < loc[2] + 9; y++)
@@ -5910,6 +6360,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int x = loc[1] - 6; x < loc[1] + 8; x++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -5919,17 +6370,22 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
                                 }
+
                                 if (orient4)
                                     id = Room.ChamberTrap4060O4;
                             }
+                        }
                         break;
                     #endregion
                     #region Up
                     case Direction.Up:
                         //Test Orientation 1
                         if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] - 13 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int y = loc[2] - 1; y > loc[2] - 14; y--)
@@ -5960,6 +6416,7 @@ public class DungeonGenerator : MonoBehaviour {
                                     }
                                 }
                                 else
+                                {
                                     for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                     {
                                         Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -5969,6 +6426,7 @@ public class DungeonGenerator : MonoBehaviour {
                                             break;
                                         }
                                     }
+                                }
 
                                 //If at any time a location becomes invlaid, end testing on Orientation 1
                                 if (orient1 == false)
@@ -5978,8 +6436,11 @@ public class DungeonGenerator : MonoBehaviour {
 
                         //If Orientation 1 doesn't fit, try Orientation 2, if that works, set new room orientation
                         if (!orient1)
+                        {
                             if (((loc[1] - 4 < 0) || (loc[1] + 5 >= mapWidth)) || (loc[2] - 13 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] - 1; y > loc[2] - 14; y--)
@@ -6009,6 +6470,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6018,18 +6480,24 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
 
                                     if (orient2 == false)
                                         break;
                                 }
+
                                 if (orient2)
                                     id = Room.ChamberTrap4060O2;
                             }
+                        }
 
                         //If Orientation 2 doesn't fit, try Orientation 3, if that works, set new room orientation
                         if ((!orient1) && (!orient2))
+                        {
                             if (((loc[1] - 6 < 0) || (loc[1] + 7 >= mapWidth)) || (loc[2] - 9 < 0))
+                            {
                                 orient3 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] - 1; y > loc[2] - 10; y--)
@@ -6059,6 +6527,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6068,15 +6537,21 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
                                 }
+
                                 if (orient3)
                                     id = Room.ChamberTrap4060O3;
                             }
+                        }
 
                         //If Orientation 3 doesn't fit, try Orientation 4
                         if ((!orient1) && (!orient2) && (!orient3))
+                        {
                             if (((loc[1] - 6 < 0) || (loc[1] + 7 >= mapWidth)) || (loc[2] - 9 < 0))
+                            {
                                 orient4 = false;
+                            }
                             else
                             {
                                 for (int y = loc[2] - 1; y > loc[2] - 9; y--)
@@ -6106,6 +6581,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int x = loc[1] - 6; x < loc[1] + 8; x++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6115,16 +6591,21 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
                                 }
+
                                 if (orient4)
                                     id = Room.ChamberTrap4060O4;
                             }
+                        }
                         break;
                     #endregion
                     #region Left
                     case Direction.Left:
                         if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] - 13 < 0))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] - 1; x > loc[1] - 14; x--)
@@ -6154,6 +6635,7 @@ public class DungeonGenerator : MonoBehaviour {
                                     }
                                 }
                                 else
+                                {
                                     for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                     {
                                         Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6163,6 +6645,7 @@ public class DungeonGenerator : MonoBehaviour {
                                             break;
                                         }
                                     }
+                                }
 
                                 if (orient1 == false)
                                     break;
@@ -6170,8 +6653,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (!orient1)
+                        {
                             if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] - 13 < 0))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int x = loc[1] - 1; x > loc[1] - 14; x--)
@@ -6201,6 +6687,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6210,17 +6697,23 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
 
                                     if (orient2 == false)
                                         break;
                                 }
+
                                 if (orient2)
                                     id = Room.ChamberTrap4060O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
+                        {
                             if (((loc[2] - 7 < 0) || (loc[2] + 7 >= mapDepth)) || (loc[1] - 9 < 0))
+                            {
                                 orient3 = false;
+                            }
                             else
                             {
                                 for (int x = loc[1] - 1; x > loc[1] - 10; x--)
@@ -6250,6 +6743,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int y = loc[2] - 5; y < loc[2] + 6; y++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6259,17 +6753,23 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
 
                                     if (orient3 == false)
                                         break;
                                 }
+
                                 if (orient3)
                                     id = Room.ChamberTrap4060O3;
                             }
+                        }
 
                         if ((!orient1) && (!orient2) && (!orient3))
+                        {
                             if (((loc[2] - 7 < 0) || (loc[2] + 7 >= mapDepth)) || (loc[1] - 9 < 0))
+                            {
                                 orient4 = false;
+                            }
                             else
                             {
                                 for (int x = loc[1] - 1; x > loc[1] - 10; x--)
@@ -6299,6 +6799,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int y = loc[2] - 7; y < loc[2] + 8; y++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6308,19 +6809,24 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
 
                                     if (orient4 == false)
                                         break;
                                 }
+
                                 if (orient4)
                                     id = Room.ChamberTrap4060O4;
                             }
+                        }
                         break;
                     #endregion
                     #region Right
                     case Direction.Right:
                         if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] + 13 >= mapWidth))
+                        {
                             orient1 = false;
+                        }
                         else
                         {
                             for (int x = loc[1] + 1; x < loc[1] + 14; x++)
@@ -6350,6 +6856,7 @@ public class DungeonGenerator : MonoBehaviour {
                                     }
                                 }
                                 else
+                                {
                                     for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                     {
                                         Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6359,6 +6866,7 @@ public class DungeonGenerator : MonoBehaviour {
                                             break;
                                         }
                                     }
+                                }
 
                                 if (orient1 == false)
                                     break;
@@ -6366,8 +6874,11 @@ public class DungeonGenerator : MonoBehaviour {
                         }
 
                         if (!orient1)
+                        {
                             if (((loc[2] - 5 < 0) || (loc[2] + 4 >= mapDepth)) || (loc[1] + 13 >= mapWidth))
+                            {
                                 orient2 = false;
+                            }
                             else
                             {
                                 for (int x = loc[1] + 1; x < loc[1] + 14; x++)
@@ -6397,6 +6908,7 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
+                                    {
                                         for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
@@ -6406,17 +6918,23 @@ public class DungeonGenerator : MonoBehaviour {
                                                 break;
                                             }
                                         }
+                                    }
 
                                     if (orient2 == false)
                                         break;
                                 }
+
                                 if (orient2)
                                     id = Room.ChamberTrap4060O2;
                             }
+                        }
 
                         if ((!orient1) && (!orient2))
+                        {
                             if (((loc[2] - 7 < 0) || (loc[2] + 7 >= mapDepth)) || (loc[1] + 9 >= mapWidth))
+                            {
                                 orient3 = false;
+                            }
                             else
                             {
                                 for (int x = loc[1] + 1; x < loc[1] + 10; x++)
@@ -6446,31 +6964,6 @@ public class DungeonGenerator : MonoBehaviour {
                                         }
                                     }
                                     else
-                                        for (int y = loc[2] - 5; y < loc[2] + 6; y++)
-                                        {
-                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                            if (dungeon[loc[0], x, y] != Map.Blank)
-                                            {
-                                                orient3 = false;
-                                                break;
-                                            }
-                                        }
-
-                                    if (orient3 == false)
-                                        break;
-                                }
-                                if (orient3)
-                                    id = Room.ChamberTrap4060O3;
-                            }
-
-                        if ((!orient1) && (!orient2) && (!orient3))
-                            if (((loc[2] - 7 < 0) || (loc[2] + 7 >= mapDepth)) || (loc[1] + 9 >= mapWidth))
-                                orient4 = false;
-                            else
-                            {
-                                for (int x = loc[1] + 1; x < loc[1] + 10; x++)
-                                {
-                                    if (x < loc[1] + 4)
                                     {
                                         for (int y = loc[2] - 5; y < loc[2] + 6; y++)
                                         {
@@ -6482,6 +6975,38 @@ public class DungeonGenerator : MonoBehaviour {
                                             }
                                         }
                                     }
+
+                                    if (orient3 == false)
+                                        break;
+                                }
+
+                                if (orient3)
+                                    id = Room.ChamberTrap4060O3;
+                            }
+                        }
+
+                        if ((!orient1) && (!orient2) && (!orient3))
+                        {
+                            if (((loc[2] - 7 < 0) || (loc[2] + 7 >= mapDepth)) || (loc[1] + 9 >= mapWidth))
+                            {
+                                orient4 = false;
+                            }
+                            else
+                            {
+                                for (int x = loc[1] + 1; x < loc[1] + 10; x++)
+                                {
+                                    if (x < loc[1] + 4)
+                                    {
+                                        for (int y = loc[2] - 5; y < loc[2] + 6; y++)
+                                        {
+                                            Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                            if (dungeon[loc[0], x, y] != Map.Blank)
+                                            {
+                                                orient4 = false;
+                                                break;
+                                            }
+                                        }
+                                    }
                                     else if (x < loc[1] + 8)
                                     {
                                         for (int y = loc[2] - 6; y < loc[2] + 7; y++)
@@ -6489,7 +7014,7 @@ public class DungeonGenerator : MonoBehaviour {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
                                             if (dungeon[loc[0], x, y] != Map.Blank)
                                             {
-                                                orient3 = false;
+                                                orient4 = false;
                                                 break;
                                             }
                                         }
@@ -6511,11 +7036,12 @@ public class DungeonGenerator : MonoBehaviour {
                                 if (orient4)
                                     id = Room.ChamberTrap4060O4;
                             }
+                        }
                         break;
                         #endregion
                 }
 
-                if ((!orient1) && (!orient2) && (!orient3) && (!orient4))
+                if (((!orient1) && (!orient2)) && ((!orient3) && (!orient4)))
                     { Debug.Log(id + " is invalid"); return false; }
 
                 break;
@@ -6530,47 +7056,67 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 1 < 0) || (loc[1] + 2 >= mapWidth)) || (loc[2] + 5 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 6; y++)
-                            for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] + 1; y < loc[2] + 6; y++)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 1 < 0) || (loc[1] + 2 >= mapWidth)) || (loc[2] - 5 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 6; y--)
-                            for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] - 1; y > loc[2] - 6; y--)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 2 < 0) || (loc[2] + 1 >= mapDepth)) || (loc[1] - 5 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 6; x--)
-                            for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] - 1; x > loc[1] - 6; x--)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                     case Direction.Right:
                         if (((loc[2] - 2 < 0) || (loc[2] + 1 >= mapDepth)) || (loc[1] + 5 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[1] + 6; x++)
-                            for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] + 1; x < loc[1] + 6; x++)
                             {
-                                Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                if (dungeon[loc[0], x, y] != Map.Blank)
+                                for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if (dungeon[loc[0], x, y] != Map.Blank)
                                     { Debug.Log(id + " is invalid"); return false; }
+                                }
                             }
+                        }
                         break;
                 }
                 break;
@@ -6581,79 +7127,115 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] + 5 >= mapDepth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] + 1; y < loc[2] + 6; y++)
-                            if (y < loc[2] + 3)
-                                for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] + 1; y < loc[2] + 6; y++)
+                            {
+                                if (y < loc[2] + 3)
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
-                            else
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                else
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
+                            }
+                        }
                         break;
                     case Direction.Up:
                         if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] - 5 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int y = loc[2] - 1; y > loc[2] - 6; y--)
-                            if (y > loc[2] - 3)
-                                for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int y = loc[2] - 1; y > loc[2] - 6; y--)
+                            {
+                                if (y > loc[2] - 3)
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
-                            else
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                else
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
+                            }
+                        }
                         break;
                     case Direction.Left:
                         if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] - 5 < 0))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] - 1; x > loc[1] - 6; x--)
-                            if (x > loc[1] - 3)
-                                for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] - 1; x > loc[1] - 6; x--)
+                            {
+                                if (x > loc[1] - 3)
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
-                            else
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                else
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
+                            }
+                        }
                         break;
                     case Direction.Right:
                         if (((loc[2] - 4 < 0) || (loc[2] + 3 >= mapDepth)) || (loc[1] + 5 >= mapWidth))
-                            { Debug.Log(id + " is invalid"); return false; }
-                        for (int x = loc[1] + 1; x < loc[1] + 6; x++)
-                            if (x < loc[1] + 3)
-                                for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                        { Debug.Log(id + " is invalid"); return false; }
+                        else
+                        {
+                            for (int x = loc[1] + 1; x < loc[1] + 6; x++)
+                            {
+                                if (x < loc[1] + 3)
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
-                            else
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                else
                                 {
-                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
-                                    if (dungeon[loc[0], x, y] != Map.Blank)
+                                    for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                    {
+                                        Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
                                         { Debug.Log(id + " is invalid"); return false; }
+                                    }
                                 }
+                            }
+                        }
                         break;
                 }
                 break;
