@@ -28,22 +28,6 @@ public class DungeonGenerator : MonoBehaviour {
         For ease of communication within the script, a second enumerated valirable "Room"
         will be used to explain to different methods exactly which type of room must be
         validated or placed.
-
-        *****************************************
-         
-        The issue that I am having is this: For some reason, the validation method herein
-        does not accurately determine if a room or passage is valid in a given location.
-        Often it does, but it is not 100%, and I am therefore often given finalized dungeons
-        with rooms overlapping other rooms or passages, or passages overlapping each other
-        or some combination thereof. Sometimes, a room will pass validation, but when it is
-        sent to SetRoom(), an "out of bounds" exception is thrown, even though that should be
-        the first thing the validation method checks for. I have been over this code multiple
-        times and am unable to determine why these things are happening.
-
-        Also, on occasion, some rooms are not setting properly -- they will have gaps, or will
-        be offset from where they should be getting placed. Sometimes I am able to figure out 
-        why this is happening (I have fixed multiple of these issues), but it still happens and
-        I cannot determine why.
     */
 
     public GameObject[] sprites;
@@ -72,7 +56,7 @@ public class DungeonGenerator : MonoBehaviour {
         Chamber3040O1, Chamber3040O2, Chamber4050O1, Chamber4050O2,
         Chamber5080O1, Chamber5080O2, ChamberC30, ChamberC50, ChamberO40,
         ChamberO60, ChamberTrap4060O1, ChamberTrap4060O2, ChamberTrap4060O3,
-        ChamberTrap4060O4, BeyondT, BeyondPass, Stair
+        ChamberTrap4060O4, BeyondT, BeyondPass, Stair, ExitCorridor
     }
     enum Direction { Left, Right, Up, Down }
 
@@ -138,21 +122,35 @@ public class DungeonGenerator : MonoBehaviour {
             //Otherwise, figure out what to do at that tile
             if (loc[1] <= 1 || loc[2] <= 1)
             {
-                if (dungeon[loc[0], loc[1], loc[2]] == Map.PassageIP)
-                    dungeon[loc[0], loc[1], loc[2]] = Map.Passage;
-                else if (dungeon[loc[0], loc[1], loc[2]] == Map.Door)
-                    dungeon[loc[0], loc[1], loc[2]] = Map.WoodDoor;
-                else
-                    dungeon[loc[0], loc[1], loc[2]] = Map.SecretDoor;
+                switch(dungeon[loc[0], loc[1], loc[2]])
+                {
+                    case Map.PassageIP:
+                        dungeon[loc[0], loc[1], loc[2]] = Map.Passage;
+                        break;
+                    case Map.Door:
+                    case Map.Exit:
+                        dungeon[loc[0], loc[1], loc[2]] = Map.WoodDoor;
+                        break;
+                    default:
+                        dungeon[loc[0], loc[1], loc[2]] = Map.SecretDoor;
+                        break;
+                }
             }
             else if ((loc[1] >= (mapWidth - 2)) || (loc[2] >= (mapDepth - 2)))
             {
-                if (dungeon[loc[0], loc[1], loc[2]] == Map.PassageIP)
-                    dungeon[loc[0], loc[1], loc[2]] = Map.Passage;
-                else if (dungeon[loc[0], loc[1], loc[2]] == Map.Door)
-                    dungeon[loc[0], loc[1], loc[2]] = Map.WoodDoor;
-                else
-                    dungeon[loc[0], loc[1], loc[2]] = Map.SecretDoor;
+                switch (dungeon[loc[0], loc[1], loc[2]])
+                {
+                    case Map.PassageIP:
+                        dungeon[loc[0], loc[1], loc[2]] = Map.Passage;
+                        break;
+                    case Map.Door:
+                    case Map.Exit:
+                        dungeon[loc[0], loc[1], loc[2]] = Map.WoodDoor;
+                        break;
+                    default:
+                        dungeon[loc[0], loc[1], loc[2]] = Map.SecretDoor;
+                        break;
+                }
             }
             else
             {
@@ -167,6 +165,9 @@ public class DungeonGenerator : MonoBehaviour {
                     case Map.Door:
                     case Map.SecretDoor:
                         BeyondDoor();
+                        break;
+                    case Map.Exit:
+                        ChamberExit();
                         break;
                 }
             }
@@ -1352,7 +1353,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 else
                                     for (int x = loc[1] - ((size / 2) - 1); x < loc[1] + (size / 2) + 3; x++)
                                         dungeon[loc[0], x, y] = Map.Passage;
-                            dungeon[loc[0], loc[1] + (size / 2) + 2, loc[2] - (size / 2) - 3] = Map.PassageIP;
+                            dungeon[loc[0], loc[1] + (size / 2) + 3, loc[2] - (size / 2) - 3] = Map.PassageIP;
                         }
                         else if (size == 8)
                         {
@@ -1694,9 +1695,7 @@ public class DungeonGenerator : MonoBehaviour {
             //This allows doors to exist without interrupting the room or
             //Parent room or passage. Depending on the size of the room,
             //They may have a different number of exits (doors or corridors)
-
-            //Exits not currently coded
-
+            
             case Room.Chamber2020:
                 //A square room, 4 tiles by 4 tiles. 
                 //Small room.
@@ -1706,21 +1705,93 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 5; y++)
                             for (int x = loc[1] - 1; x < loc[1] + 3; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] + 5] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 3] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] + 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 5; y--)
                             for (int x = loc[1] - 1; x < loc[1] + 3; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] - 5] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 2] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 2] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] - 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] - 2] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 5; x--)
                             for (int y = loc[2] - 2; y < loc[2] + 2; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] - 5, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 3] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 2] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 3, loc[2] - 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 3, loc[2] + 2] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 5; x++)
                             for (int y = loc[2] - 2; y < loc[2] + 2; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] + 5, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 2] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 2, loc[2] + 2] = Map.Exit;
+                        }
+
                         break;
                 }
                 break;
@@ -1735,21 +1806,93 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 7; y++)
                             for (int x = loc[1] - 1; x < loc[1] + 3; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] + 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 7; y--)
                             for (int x = loc[1] - 1; x < loc[1] + 3; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 7; x--)
                             for (int y = loc[2] - 2; y < loc[2] + 2; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 2] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 4, loc[2] + 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 7; x++)
                             for (int y = loc[2] - 2; y < loc[2] + 2; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 2] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] + 3, loc[2] + 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                        }
+
                         break;
                 }
                 break;
@@ -1764,21 +1907,93 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 5; y++)
                             for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] + 5] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 5; y--)
                             for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] - 5] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 2] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 2] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 3, loc[2] - 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 4, loc[2] - 2] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 5; x--)
                             for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] - 5, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 5; x++)
                             for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] + 5, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] + 2, loc[2] - 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 2, loc[2] + 3] = Map.Exit;
+                        }
+
                         break;
                 }
                 break;
@@ -1792,21 +2007,93 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 7; y++)
                             for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 7; y--)
                             for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 3] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] + 4, loc[2] - 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 3, loc[2] - 3] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 7; x--)
                             for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 7; x++)
                             for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                        }
+
                         break;
                 }
                 break;
@@ -1821,21 +2108,345 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 9; y++)
                             for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] + 9] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 3)
+                        {
+                            switch(Random.Range(1, 7))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 5:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 6:
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 4)
+                        {
+                            switch(Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                            }
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 9; y--)
                             for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] - 9] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 3)
+                        {
+                            switch (Random.Range(1, 7))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 5:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 6:
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 4)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 6] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 4, loc[2] + 6] = Map.Exit;
+                                    break;
+                            }
+                        }
+
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 9; x--)
                             for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] - 9, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 3)
+                        {
+                            switch (Random.Range(1, 7))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 5:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 6:
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 4)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 9; x++)
                             for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] + 9, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 3)
+                        {
+                            switch (Random.Range(1, 7))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 5:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 6:
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 4)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] + 3] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 6, loc[2] - 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
                         break;
                 }
                 break;
@@ -1850,21 +2461,289 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 7; y++)
                             for (int x = loc[1] - 3; x < loc[1] + 5; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits == 1)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 7] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 7] = Map.Exit;
+                        }
+
+                        if (numExits == 2)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] + 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] + 2, loc[2] + 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] + 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] + 2, loc[2] + 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] + 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 3)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] + 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 2, loc[2] + 7] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] + 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] + 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 2, loc[2] + 7] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] + 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] + 2, loc[2] + 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] + 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 4)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] + 7] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 2, loc[2] + 7] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 5, loc[2] + 7] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 7; y--)
                             for (int x = loc[1] - 3; x < loc[1] + 5; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits == 1)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                        }
+
+                        if (numExits == 2)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] - 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 3)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] - 4] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 5, loc[2] - 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 4)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 5, loc[2] - 7] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 7; x--)
                             for (int y = loc[2] - 4; y < loc[2] + 4; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits == 1)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 7, loc[2] - 2] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 7, loc[2] + 2] = Map.Exit;
+                        }
+
+                        if (numExits == 2)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 3)
+                        {
+                            switch(Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] - 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] - 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] - 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] - 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                    dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 4)
+                        {
+                            dungeon[loc[0], loc[1] - 7, loc[2] + 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 7, loc[2] - 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 7; x++)
                             for (int y = loc[2] - 4; y < loc[2] + 4; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits == 1)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                        }
+
+                        if (numExits == 2)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 3)
+                        {
+                            switch (Random.Range(1, 5))
+                            {
+                                case 1:
+                                    dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                    break;
+                                case 2:
+                                    dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 3:
+                                    dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                    break;
+                                case 4:
+                                    dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                    dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                    break;
+                            }
+                        }
+
+                        if (numExits == 4)
+                        {
+                            dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                        }
+
                         break;
                 }
                 break;
@@ -1878,21 +2757,137 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 9; y++)
                             for (int x = loc[1] - 3; x < loc[1] + 5; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits == 1)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                        }
+
+                        if (numExits >= 2)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                        }
+
+                        if (numExits == 3)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 5, loc[2] + 5] = Map.Exit;
+                        }
+
+                        if (numExits == 4)
+                        {
+                            dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 5, loc[2] + 5] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 9; y--)
                             for (int x = loc[1] - 3; x < loc[1] + 5; x++)   
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits == 1)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                        }
+
+                        if (numExits >= 2)
+                        {
+                            dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                        }
+
+                        if (numExits == 3)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 5, loc[2] - 4] = Map.Exit;
+                        }
+
+                        if (numExits == 4)
+                        {
+                            dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 5, loc[2] - 4] = Map.Exit;
+                        }
+                        
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 9; x--)
                             for (int y = loc[2] - 4; y < loc[2] + 4; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits == 1)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                        }
+
+                        if (numExits >= 2)
+                        {
+                            dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                        }
+
+                        if (numExits == 3)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 5, loc[2] + 4] = Map.Exit;
+                        }
+
+                        if (numExits == 4)
+                        {
+                            dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 5, loc[2] + 4] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 9; x++)
                             for (int y = loc[2] - 4; y < loc[2] + 4; y++)   
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits == 1)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                        }
+
+                        if (numExits >= 2)
+                        {
+                            dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                        }
+
+                        if (numExits == 3)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                        }
+
+                        if (numExits == 4)
+                        {
+                            dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                        }
+
                         break;
                 }
                 break;
@@ -1907,21 +2902,1410 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 11; y++)
                             for (int x = loc[1] - 3; x < loc[1] + 5; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch(numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit; 
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 8] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 11] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 5, loc[2] + 8] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 11] = Map.Exit;
+                                break;
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 11; y--)
                             for (int x = loc[1] - 3; x < loc[1] + 5; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch(numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch(Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 11] = Map.Door;
+                                dungeon[loc[0], loc[1] + 5, loc[2] - 8] = Map.Door;
+                                dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Door;
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 11] = Map.Door;
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 8] = Map.Door;
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Door;
+                                break;
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 11; x--)
                             for (int y = loc[2] - 4; y < loc[2] + 4; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Door;
+                                dungeon[loc[0], loc[1] - 8, loc[2] - 5] = Map.Door;
+                                dungeon[loc[0], loc[1] - 11, loc[2] - 2] = Map.Door;
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Door;
+                                dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Door;
+                                dungeon[loc[0], loc[1] - 11, loc[2] + 2] = Map.Door;
+                                break;
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 11; x++)
                             for (int y = loc[2] - 4; y < loc[2] + 4; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Door;
+                                dungeon[loc[0], loc[1] + 8, loc[2] - 5] = Map.Door;
+                                dungeon[loc[0], loc[1] + 11, loc[2] - 2] = Map.Door;
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Door;
+                                dungeon[loc[0], loc[1] + 8, loc[2] + 4] = Map.Door;
+                                dungeon[loc[0], loc[1] + 11, loc[2] + 2] = Map.Door;
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -1936,21 +4320,1411 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] + 1; y < loc[2] + 9; y++)
                             for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch(Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 5, loc[2] + 3] = Map.Door;
+                                dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Door;
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Door;
+                                dungeon[loc[0], loc[1] + 6, loc[2] + 3] = Map.Door;
+                                dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Door;
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Door;
+                                break;
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 9; y--)
                             for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 5, loc[2] - 3] = Map.Door;
+                                dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Door;
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Door;
+                                dungeon[loc[0], loc[1] + 6, loc[2] - 3] = Map.Door;
+                                dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Door;
+                                break;
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 9; x--)
                             for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 6] = Map.Door;
+                                dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Door;
+                                dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Door;
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 5] = Map.Door;
+                                dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Door;
+                                dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Door;
+                                break;
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 9; x++)
                             for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 6] = Map.Door;
+                                dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Door;
+                                dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Door;
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 5] = Map.Door;
+                                dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Door;
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -1959,12 +5733,360 @@ public class DungeonGenerator : MonoBehaviour {
                 //A rectangular room, 10 tiles by 16 tiles.
                 //Enter on the small wall.
                 //Large room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 17; y++)
                             for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Door;
+                                dungeon[loc[0], loc[1] - 5, loc[2] + 13] = Map.Door;
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 17] = Map.Door;
+                                dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Door;
+                                dungeon[loc[0], loc[1] + 6, loc[2] + 13] = Map.Door;
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 17] = Map.Door;
+                                break;
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 17; y--)
@@ -1988,6 +6110,7 @@ public class DungeonGenerator : MonoBehaviour {
                 //A rectangular room, 10 tiles by 16 tiles.
                 //Enter on the long wall.
                 //Large room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -2026,6 +6149,24 @@ public class DungeonGenerator : MonoBehaviour {
                             else
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
                                     dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 7; y--)
@@ -2035,6 +6176,24 @@ public class DungeonGenerator : MonoBehaviour {
                             else
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
                                     dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 3] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] + 4, loc[2] - 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 3, loc[2] - 3] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 7; x--)
@@ -2044,6 +6203,24 @@ public class DungeonGenerator : MonoBehaviour {
                             else
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                     dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                            dungeon[loc[0], loc[1] - 4, loc[2] - 4] = Map.Exit;
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 7; x++)
@@ -2053,6 +6230,24 @@ public class DungeonGenerator : MonoBehaviour {
                             else
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
                                     dungeon[loc[0], x, y] = Map.Room;
+
+                        if (numExits >= 1)
+                            dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
+
+                        if (numExits == 2)
+                        {
+                            if (Random.Range(1, 3) == 1)
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                            else
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                        }
+
+                        if (numExits >= 3)
+                        {
+                            dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                            dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                        }
+
                         break;
                 }
                 break;
@@ -2060,6 +6255,7 @@ public class DungeonGenerator : MonoBehaviour {
             case Room.ChamberC50:
                 //A circular room, 10 tiles in diameter.
                 //Large room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -2116,6 +6312,7 @@ public class DungeonGenerator : MonoBehaviour {
             case Room.ChamberO40:
                 //An octagonal room, 8 tiles in diameter
                 //Small room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -2172,6 +6369,7 @@ public class DungeonGenerator : MonoBehaviour {
             case Room.ChamberO60:
                 //An octagonal room, 12 tiles in diameter.
                 //Large room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -2241,7 +6439,8 @@ public class DungeonGenerator : MonoBehaviour {
                 //A trapezoidal room, 8 tiles wide tapering to 4 tiles wide.
                 //12 tiles long.
                 //Enter on the 8-tile side.
-                //Small room.
+                //Large room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -2299,7 +6498,8 @@ public class DungeonGenerator : MonoBehaviour {
                 //A trapezoidal room, 8 tiles wide tapering to 4 tiles wide.
                 //12 tiles long.
                 //Enter on the 4-tile side.
-                //Small room.
+                //Large room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -2357,7 +6557,8 @@ public class DungeonGenerator : MonoBehaviour {
                 //A Trapezoidal room, 12 tiles wide tapering to 8 tiles wide.
                 //8 tiles long.
                 //Enter on the 12-tile sie.
-                //Small room.
+                //Large room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -2415,7 +6616,8 @@ public class DungeonGenerator : MonoBehaviour {
                 //A trapezoidal room, 12 tiles wide tapering to 8 tiles wide.
                 //8 tiles long.
                 //Enter on the 8-tile side.
-                //Small room.
+                //Large room.
+                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -2560,6 +6762,36 @@ public class DungeonGenerator : MonoBehaviour {
                                     dungeon[loc[0], x, y] = Map.Passage;
                         dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.PassageIP;
                         dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.PassageIP;
+                        break;
+                }
+                break;
+            case Room.ExitCorridor:
+                //From a room, a 2-tile wide passage, extending 2 tiles
+                switch (dir)
+                {
+                    case Direction.Down:
+                        for (int y = loc[2]; y < loc[2] + 2; y++)
+                            for (int x = loc[1]; x < loc[1] + 2; x++)
+                                dungeon[loc[0], x, y] = Map.Passage;
+                        dungeon[loc[0], loc[1], loc[2] + 2] = Map.PassageIP;
+                        break;
+                    case Direction.Up:
+                        for (int y = loc[2]; y > loc[2] - 2; y--)
+                            for (int x = loc[1]; x < loc[1] + 2; x++)
+                                dungeon[loc[0], x, y] = Map.Passage;
+                        dungeon[loc[0], loc[1], loc[2] - 2] = Map.PassageIP;
+                        break;
+                    case Direction.Left:
+                        for (int x = loc[1]; x > loc[1] - 2; x--)
+                            for (int y = loc[2] - 1; y < loc[2] + 1; y++)
+                                dungeon[loc[0], x, y] = Map.Passage;
+                        dungeon[loc[0], loc[1] - 2, loc[2]] = Map.PassageIP;
+                        break;
+                    case Direction.Right:
+                        for (int x = loc[1]; x < loc[1] + 2; x++)
+                            for (int y = loc[2] - 1; y < loc[2] + 1; y++)
+                                dungeon[loc[0], x, y] = Map.Passage;
+                        dungeon[loc[0], loc[1] + 2, loc[2]] = Map.PassageIP;
                         break;
                 }
                 break;
@@ -2762,6 +6994,12 @@ public class DungeonGenerator : MonoBehaviour {
                             dungeon[f, x, y] = Map.SecretDoor;
                         return true;
                     }
+                    if (dungeon[f,x,y] == Map.Exit)
+                    {
+                        Debug.Log("Found an incomplete dungeon: Chamber Exit at " + f + " " + x + " " + y);
+                        loc = new int[] { f, x, y };
+                        return true;
+                    }
                 }
         return false;
     }
@@ -2943,6 +7181,7 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                 }
             else
+            {
                 switch (Random.Range(1, 21))
                 {
                     case 1:
@@ -2973,6 +7212,10 @@ public class DungeonGenerator : MonoBehaviour {
                         size = 2;
                         break;
                 }
+
+                if (size > maxSize)
+                    size = maxSize;
+            }
 
             //If a rolled size is larger than the max size, fix!
             if (size > maxSize)
@@ -3245,6 +7488,48 @@ public class DungeonGenerator : MonoBehaviour {
             default:
                 numExits = 0;
                 break;
+        }
+    }
+
+    void ChamberExit()
+    {
+        Room id = Room.ExitCorridor;
+        Direction dir = Direction.Down;
+        if (
+            ((dungeon[loc[0], loc[1] - 1, loc[2]] == Map.Room) ||
+             (dungeon[loc[0], loc[1] - 1, loc[2]] == Map.Passage) ||
+             (dungeon[loc[0], loc[1] - 1, loc[2]] == Map.Pillar)) &&
+            ((dungeon[loc[0], loc[1] + 1, loc[2]] == Map.Room) ||
+             (dungeon[loc[0], loc[1] + 1, loc[2]] == Map.Passage) ||
+             (dungeon[loc[0], loc[1] + 1, loc[2]] == Map.Pillar)) &&
+            ((dungeon[loc[0], loc[1], loc[2] - 1] == Map.Room) ||
+             (dungeon[loc[0], loc[1], loc[2] - 1] == Map.Passage) ||
+             (dungeon[loc[0], loc[1], loc[2] - 1] == Map.Pillar)) &&
+            ((dungeon[loc[0], loc[1], loc[2] + 1] == Map.Room) ||
+             (dungeon[loc[0], loc[1], loc[2] + 1] == Map.Passage) ||
+             (dungeon[loc[0], loc[1], loc[2] + 1] == Map.Pillar))
+            )
+        {
+            dungeon[loc[0], loc[1], loc[2]] = RollDoor();
+        }
+        else
+        {
+            if ((dungeon[0, loc[1] + 1, loc[2]] == Map.Room) || (dungeon[0, loc[1] + 1, loc[2]] == Map.Passage) || (dungeon[0, loc[1] + 1, loc[2]] == Map.Pillar))
+                dir = Direction.Left;
+            else if ((dungeon[0, loc[1] - 1, loc[2]] == Map.Room) || (dungeon[0, loc[1] - 1, loc[2]] == Map.Passage) || (dungeon[0, loc[1] - 1, loc[2]] == Map.Pillar))
+                dir = Direction.Right;
+            else if ((dungeon[0, loc[1], loc[2] + 1] == Map.Room) || (dungeon[0, loc[1], loc[2] + 1] == Map.Passage) || (dungeon[0, loc[1], loc[2] + 1] == Map.Pillar))
+                dir = Direction.Up;
+            else
+                dir = Direction.Down;
+
+            if (Random.Range(1, 3) == 2)
+            {
+                if (IsValid(ref id, dir, 0))
+                    SetRoom(id, 0, dir);
+            }
+            else
+                dungeon[loc[0], loc[1], loc[2]] = Map.Door;
         }
     }
 
@@ -3773,7 +8058,7 @@ public class DungeonGenerator : MonoBehaviour {
                             }
                             else
                             {
-                                for (int y = loc[2]; y < loc[2] + size + 4; y++)
+                                for (int y = loc[2]; y < loc[2] + size + 5; y++)
                                 {
                                     if (y < loc[2] + 3)
                                     {
@@ -4190,7 +8475,7 @@ public class DungeonGenerator : MonoBehaviour {
                                     }
                                     else
                                     {
-                                        for (int x = loc[1] - check; x < loc[1] + check + 3; x++)
+                                        for (int x = loc[1] - check; x < loc[1] + check + 4; x++)
                                         {
                                             Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
                                             if (dungeon[loc[0], x, y] != Map.Blank)
@@ -4452,10 +8737,8 @@ public class DungeonGenerator : MonoBehaviour {
 
                         if (orient1 == false)
                         {
-                            if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] + 5 >= mapDepth))
-                            {
-                                orient2 = false;
-                            }
+                            if (((loc[1] - 3 < 0) || (loc[1] + 4 >= mapWidth)) || (loc[2] + 5 >= mapDepth)){
+                                orient2 = false;}
                             else
                             {
                                 for (int y = loc[2] + 1; y < loc[2] + 6; y++)
@@ -4487,8 +8770,7 @@ public class DungeonGenerator : MonoBehaviour {
                         {
                             orient1 = false;
                         }
-                        else
-                        {
+                        else {
                             for (int y = loc[2] - 1; y > loc[2] - 8; y--)
                             {
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
@@ -5481,10 +9763,10 @@ public class DungeonGenerator : MonoBehaviour {
                                         break;
                                     }
                                 }
-                            }
 
-                            if (orient1 == false)
-                                break;
+                                if (orient1 == false)
+                                    break;
+                            }
                         }
 
                         if (orient1 == false)
@@ -5495,7 +9777,7 @@ public class DungeonGenerator : MonoBehaviour {
                             }
                             else
                             {
-                                for (int x = loc[1] + 1; x > loc[1] + 12; x++)
+                                for (int x = loc[1] + 1; x < loc[1] + 12; x++)
                                 {
                                     for (int y = loc[2] - 6; y < loc[2] + 6; y++)
                                     {
@@ -5630,7 +9912,7 @@ public class DungeonGenerator : MonoBehaviour {
                                 }
                                 else
                                 {
-                                    for (int y = loc[2] - 2; y < loc[2] + 4; y++)
+                                    for (int y = loc[2] - 3; y < loc[2] + 5; y++)
                                     {
                                         Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
                                         if (dungeon[loc[0], x, y] != Map.Blank)
@@ -7239,6 +11521,97 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                 }
                 break;
+
+            case Room.ExitCorridor:
+                //This is a 2-tile wide, 2-tile long passage leading from a room
+                switch (dir)
+                {
+                    case Direction.Down:
+                        if (loc[2] + 3 >= mapDepth)
+                            return false;
+                        else
+                        {
+                            for (int y = loc[2]; y < loc[2] + 4; y++)
+                                for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if ((y == loc[2]) && (x == loc[1]))
+                                    {
+                                        //Host tile, ignore while validating
+                                    }
+                                    else
+                                    {
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                            return false;
+                                    }
+                                }
+                        }
+                        break;
+                    case Direction.Up:
+                        if (loc[2] - 3 < 0)
+                            return false;
+                        else
+                        {
+                            for (int y = loc[2]; y > loc[2] - 4; y--)
+                                for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if ((y == loc[2]) && (x == loc[1]))
+                                    {
+                                        //Host tile, ignore while validating
+                                    }
+                                    else
+                                    {
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                            return false;
+                                    }
+                                }
+                        }
+                        break;
+                    case Direction.Left:
+                        if (loc[1] - 3 < 0)
+                            return false;
+                        else
+                        {
+                            for (int x = loc[1]; x > loc[1] - 4; x--)
+                                for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if ((y == loc[2]) && (x == loc[1]))
+                                    {
+                                        //Host tile, ignore while validating
+                                    }
+                                    else
+                                    {
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                            return false;
+                                    }
+                                }
+                        }
+                        break;
+                    case Direction.Right:
+                        if (loc[1] + 3 >= mapWidth)
+                            return false;
+                        else
+                        {
+                            for (int x = loc[1]; x < loc[1] + 4; x++)
+                                for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                                {
+                                    Debug.Log("Checking " + x + " " + y + ": " + dungeon[loc[0], x, y]);
+                                    if ((y == loc[2]) && (x == loc[1]))
+                                    {
+                                        //Host tile, ignore while validating
+                                    }
+                                    else
+                                    {
+                                        if (dungeon[loc[0], x, y] != Map.Blank)
+                                            return false;
+                                    }
+                                }
+                        }
+                        break;
+                }
+                break;
         }
 
         //If no invaliding criteria are met, then the room is valid
@@ -7407,7 +11780,6 @@ public class DungeonGenerator : MonoBehaviour {
                             }
                         }
                 }
-
     }
 
     void DisplayMap()
