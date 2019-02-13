@@ -5733,7 +5733,6 @@ public class DungeonGenerator : MonoBehaviour {
                 //A rectangular room, 10 tiles by 16 tiles.
                 //Enter on the small wall.
                 //Large room.
-                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
@@ -6092,16 +6091,1057 @@ public class DungeonGenerator : MonoBehaviour {
                         for (int y = loc[2] - 1; y > loc[2] - 17; y--)
                             for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch(Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 5, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 5, loc[2] - 12] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 17] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 6, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 6, loc[2] - 12] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 17] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 17; x--)
                             for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 12, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 17, loc[2] + 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 12, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 17, loc[2] - 2] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 17; x++)
                             for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 12, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 17, loc[2] + 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 12, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 17, loc[2] - 2] = Map.Exit;
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -6110,28 +7150,1415 @@ public class DungeonGenerator : MonoBehaviour {
                 //A rectangular room, 10 tiles by 16 tiles.
                 //Enter on the long wall.
                 //Large room.
-                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 11; y++)
                             for (int x = loc[1] - 7; x < loc[1] + 9; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 8, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 8, loc[2] + 8] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 11] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] + 8] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 11] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 11; y--)
                             for (int x = loc[1] - 7; x < loc[1] + 9; x++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 8, loc[2] - 3] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 8, loc[2] - 7] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 11] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] - 3] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] - 7] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 11] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 11; x--)
                             for (int y = loc[2] - 8; y < loc[2] + 8; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 11, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 7, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 11, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 7, loc[2] + 8] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 8] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 11; x++)
                             for (int y = loc[2] - 8; y < loc[2] + 8; y++)
                                 dungeon[loc[0], x, y] = Map.Room;
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 7, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 11, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 8] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 7, loc[2] + 8] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 11, loc[2] + 4] = Map.Exit;
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -6143,12 +8570,18 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 7; y++)
+                        {
                             if ((y == loc[2] + 1) || (y == loc[2] + 6))
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
 
                         if (numExits >= 1)
                             dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
@@ -6170,12 +8603,18 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 7; y--)
+                        {
                             if ((y == loc[2] - 1) || (y == loc[2] - 6))
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
 
                         if (numExits >= 1)
                             dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
@@ -6197,12 +8636,18 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 7; x--)
+                        {
                             if ((x == loc[1] - 1) || (x == loc[1] - 6))
+                            {
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
 
                         if (numExits >= 1)
                             dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
@@ -6224,12 +8669,18 @@ public class DungeonGenerator : MonoBehaviour {
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 7; x++)
+                        {
                             if ((x == loc[1] + 1) || (x == loc[1] + 6))
+                            {
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
 
                         if (numExits >= 1)
                             dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
@@ -6260,6 +8711,7 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 11; y++)
+                        {
                             if ((y == loc[2] + 1) || (y == loc[2] + 10))
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
                                     dungeon[loc[0], x, y] = Map.Room;
@@ -6269,9 +8721,27 @@ public class DungeonGenerator : MonoBehaviour {
                             else
                                 for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                     dungeon[loc[0], x, y] = Map.Room;
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;
+                            case 6:
+                                break;
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 11; y--)
+                        {
                             if ((y == loc[2] - 1) || (y == loc[2] - 10))
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
                                     dungeon[loc[0], x, y] = Map.Room;
@@ -6281,9 +8751,12 @@ public class DungeonGenerator : MonoBehaviour {
                             else
                                 for (int x = loc[1] - 4; x < loc[1] + 6; x++)
                                     dungeon[loc[0], x, y] = Map.Room;
+                        }
+
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 11; x--)
+                        {
                             if ((x == loc[1] - 1) || (x == loc[1] - 10))
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
                                     dungeon[loc[0], x, y] = Map.Room;
@@ -6293,9 +8766,12 @@ public class DungeonGenerator : MonoBehaviour {
                             else
                                 for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                     dungeon[loc[0], x, y] = Map.Room;
+                        }
+
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 11; x++)
+                        {
                             if ((x == loc[1] + 1) || (x == loc[1] + 10))
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
                                     dungeon[loc[0], x, y] = Map.Room;
@@ -6305,6 +8781,8 @@ public class DungeonGenerator : MonoBehaviour {
                             else
                                 for (int y = loc[2] - 5; y < loc[2] + 5; y++)
                                     dungeon[loc[0], x, y] = Map.Room;
+                        }
+
                         break;
                 }
                 break;
@@ -6317,51 +8795,94 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 9; y++)
-                            if ((y == loc[2] + 1) || (y == loc[2] + 8))
+                        {  if ((y == loc[2] + 1) || (y == loc[2] + 8))
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if ((y == loc[2] + 2) || (y == loc[2] + 7))
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 9; y--)
+                        {
                             if ((y == loc[2] - 1) || (y == loc[2] - 8))
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((y == loc[2] - 2) || (y == loc[2] - 7))
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 9; x--)
+                        {
                             if ((x == loc[1] - 1) || (x == loc[1] - 8))
+                            {
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((x == loc[1] - 2) || (x == loc[1] - 7))
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 9; x++)
+                        {
                             if ((x == loc[1] + 1) || (x == loc[1] + 8))
+                            {
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((x == loc[1] + 2) || (x == loc[1] + 7))
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
                         break;
                 }
                 break;
@@ -6374,63 +8895,127 @@ public class DungeonGenerator : MonoBehaviour {
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 13; y++)
+                        {
                             if ((y == loc[2] + 1) || (y == loc[2] + 12))
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 3; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((y == loc[2] + 2) || (y == loc[2] + 11))
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 4; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((y == loc[2] + 3) || (y == loc[2] + 10))
+                            {
                                 for (int x = loc[1] - 4; x < loc[1] + 5; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 5; x < loc[1] + 6; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 13; y--)
+                        {
                             if ((y == loc[2] - 1) || (y == loc[2] - 12))
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 3; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((y == loc[2] - 2) || (y == loc[2] - 11))
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 4; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((y == loc[2] - 3) || (y == loc[2] - 10))
+                            {
                                 for (int x = loc[1] - 4; x < loc[1] + 5; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int x = loc[2] + 5; x < loc[1] + 6; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 13; x--)
+                        {
                             if ((x == loc[1] - 1) || (x == loc[1] - 12))
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((x == loc[1] - 2) || (x == loc[1] - 11))
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((x == loc[1] - 3) || (x == loc[1] - 10))
+                            {
                                 for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 13; x++)
+                        {
                             if ((x == loc[1] + 1) || (x == loc[1] + 12))
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((x == loc[1] + 2) || (x == loc[1] + 11))
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if ((x == loc[1] + 3) || (x == loc[1] + 10))
+                            {
                                 for (int y = loc[2] - 5; y < loc[2] + 5; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
                         break;
                 }
                 break;
@@ -6440,56 +9025,771 @@ public class DungeonGenerator : MonoBehaviour {
                 //12 tiles long.
                 //Enter on the 8-tile side.
                 //Large room.
-                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 13; y++)
+                        {
                             if (y < loc[2] + 4)
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if (y < loc[2] + 10)
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                            case 6:
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 0, loc[2] - 13] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 5, loc[2] - 3] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 13; y--)
+                        {
                             if (y > loc[2] - 4)
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if (y > loc[2] - 10)
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                            case 6:
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 3] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 0, loc[2] + 13] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 5, loc[2] + 3] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 13; x--)
+                        {
                             if (x > loc[1] - 4)
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if (x > loc[1] - 10)
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                            case 6:
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 13, loc[2] + 0] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 9, loc[2] + 3] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 13; x++)
+                        {
                             if (x < loc[1] + 4)
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else if (x < loc[1] + 10)
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
+                                {
                                     dungeon[loc[0], x, y] = Map.Room;
+                                }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                            case 6:
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 13, loc[2] + 0] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] + 3] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -6499,56 +9799,1475 @@ public class DungeonGenerator : MonoBehaviour {
                 //12 tiles long.
                 //Enter on the 4-tile side.
                 //Large room.
-                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 13; y++)
+                        {
                             if (y < loc[2] + 4)
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (y < loc[2] + 10)
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1,7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 10] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 13] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 13] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 5, loc[2] + 10] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 4] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 13; y--)
+                        {
                             if (y > loc[2] - 4)
+                            {
                                 for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (y > loc[2] - 10)
+                            {
                                 for (int x = loc[1] - 2; x < loc[1] + 4; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 10] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 13] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 13] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 5, loc[2] - 10] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 4] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 13; x--)
+                        {
                             if (x > loc[1] - 4)
+                            {
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (x > loc[1] - 10)
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 3, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 10, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 13, loc[2] - 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 13, loc[2] + 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 10, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 3, loc[2] + 3] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 13; x++)
+                        {
                             if (x < loc[1] + 4)
+                            {
                                 for (int y = loc[2] - 2; y < loc[2] + 2; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (x < loc[1] + 10)
+                            {
                                 for (int y = loc[2] - 3; y < loc[2] + 3; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] + 3, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 10, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 13, loc[2] - 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 13, loc[2] + 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 10, loc[2] + 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 3, loc[2] + 3] = Map.Exit;
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -6558,56 +11277,1475 @@ public class DungeonGenerator : MonoBehaviour {
                 //8 tiles long.
                 //Enter on the 12-tile sie.
                 //Large room.
-                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 9; y++)
+                        {
                             if (y < loc[2] + 3)
+                            {
                                 for (int x = loc[1] - 5; x < loc[1] + 7; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (y < loc[2] + 7)
+                            {
                                 for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 6, loc[2] + 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 5, loc[2] + 6] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 6, loc[2] + 6] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 7, loc[2] + 2] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 9; y--)
+                        {
                             if (y > loc[2] - 3)
+                            {
                                 for (int x = loc[1] - 5; x < loc[1] + 7; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (y > loc[2] - 7)
+                            {
                                 for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 6, loc[2] - 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 5, loc[2] - 6] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 7, loc[2] - 2] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 9; x--)
+                        {
                             if (x > loc[1] - 3)
+                            {
                                 for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (x > loc[1] - 7)
+                            {
                                 for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] - 2, loc[2] - 7] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 6, loc[2] - 6] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 9, loc[2] - 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 9, loc[2] + 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 6, loc[2] + 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 2, loc[2] + 6] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Right:
                         for (int x = loc[1] + 1; x < loc[1] + 9; x++)
+                        {
                             if (x < loc[1] + 3)
+                            {
                                 for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (x < loc[1] + 7)
+                            {
                                 for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 21))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 16:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 17:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 18:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 19:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 20:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 16))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 11:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 12:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 13:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 14:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 15:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                                switch (Random.Range(1, 7))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 6:
+                                dungeon[loc[0], loc[1] + 2, loc[2] - 7] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 6, loc[2] - 6] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] - 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] + 2] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 2, loc[2] + 6] = Map.Exit;
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -6617,57 +12755,755 @@ public class DungeonGenerator : MonoBehaviour {
                 //8 tiles long.
                 //Enter on the 8-tile side.
                 //Large room.
-                //Exits not currently coded
                 switch (dir)
                 {
                     case Direction.Down:
                         for (int y = loc[2] + 1; y < loc[2] + 9; y++)
+                        {
                             if (y < loc[2] + 3)
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (y < loc[2] + 7)
+                            {
                                 for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 5; x < loc[1] + 7; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch(Random.Range(0, 5))
+                                {
+                                    case 0:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                            case 6:
+                                dungeon[loc[0], loc[1] - 5, loc[2] + 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 0, loc[2] + 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 6, loc[2] + 5] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Up:
                         for (int y = loc[2] - 1; y > loc[2] - 9; y--)
+                        {
                             if (y > loc[2] - 3)
+                            {
                                 for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (y > loc[2] - 7)
+                            {
                                 for (int x = loc[1] - 4; x < loc[1] + 6; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int x = loc[1] - 5; x < loc[1] + 7; x++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                            case 6:
+                                dungeon[loc[0], loc[1] - 5, loc[2] - 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 0, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 9] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 6, loc[2] - 5] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Left:
                         for (int x = loc[1] - 1; x > loc[1] - 9; x--)
+                        {
                             if (x > loc[1] - 3)
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (x > loc[1] - 7)
+                            {
                                 for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                            case 6:
+                                dungeon[loc[0], loc[1] - 4, loc[2] - 6] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 4, loc[2] + 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 9, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 9, loc[2] + 0] = Map.Exit;
+                                dungeon[loc[0], loc[1] - 9, loc[2] + 4] = Map.Exit;
+                                break;
+                        }
                         break;
                     case Direction.Right:
-
                         for (int x = loc[1] + 1; x < loc[1] + 9; x++)
+                        {
                             if (x < loc[1] + 3)
+                            {
                                 for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else if (x < loc[1] + 7)
+                            {
                                 for (int y = loc[2] - 5; y < loc[2] + 5; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
                             else
+                            {
                                 for (int y = loc[2] - 6; y < loc[2] + 6; y++)
-                                    dungeon[loc[0], x, y] = Map.Room;
+                                { dungeon[loc[0], x, y] = Map.Room; }
+                            }
+                        }
+
+                        switch (numExits)
+                        {
+                            case 1:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (Random.Range(1, 11))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 6:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 7:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                    case 8:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 9:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 10:
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                switch (Random.Range(1, 6))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 4:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 5:
+                                        dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 5:
+                            case 6:
+                                dungeon[loc[0], loc[1] + 4, loc[2] - 6] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 4, loc[2] + 5] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] - 4] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] + 0] = Map.Exit;
+                                dungeon[loc[0], loc[1] + 9, loc[2] + 4] = Map.Exit;
+                                break;
+                        }
                         break;
                 }
                 break;
@@ -7241,7 +14077,7 @@ public class DungeonGenerator : MonoBehaviour {
             goto RETRYPASSAGE;
         }
         else if (valid)
-            SetRoom(passage, size, dir);
+        { SetRoom(passage, size, dir); }
         else
         {
             Debug.Log("Too many attempts to fit, setting dead end");
