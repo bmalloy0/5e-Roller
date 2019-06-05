@@ -520,34 +520,35 @@ public class DungeonGenerator : MonoBehaviour {
                         dungeon[loc[0], loc[1] + 6, loc[2]] = Map.PassageIP;
                         break;
                     case Direction.Left:
-                        for (int x = loc[1]; x > loc[1] - 6; x--)
+                        if (size == 1)
                         {
-                            if (size == 1)
-                                dungeon[loc[0], x, loc[2]] = Map.Passage;
-                            else if (size < 8)
-                                for (int y = loc[2] - (size / 2); y < loc[2] + (size / 2); y++)
-                                    dungeon[loc[0], x, y] = Map.Passage;
+                            SetRect(loc[0], new int[,] { { -6, 0 }, { 0, 0 } }, Map.Passage);
+                        }
+                        else
+                        {
+                            if (size < 10)
+                            {
+                                SetRect(loc[0], new int[,] { { -6, 0 }, { (size / -2), (size / 2) - 1 } }, Map.Passage);
+                            }
                             else
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    if (size == 8)
-                                        if ((y == loc[2]) || (y == loc[2] - 1))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 9)
-                                        if ((y == loc[2] - 2) || (y == loc[2] + 1))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 10)
-                                        dungeon[loc[0], x, y] = Map.PassageTall;
-                                    else
-                                    {
-                                        if ((y < loc[2] - 2) || (y > loc[2] + 1))
-                                            dungeon[loc[0], x, y] = Map.PassageBalcony;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    }
+                            {
+                                SetRect(loc[0], new int[,] { { -6, 0 }, { -4, 3 } }, Map.PassageTall);
+                                SetRect(loc[0] + 1, new int[,] { { -6, 0 }, { -4, 3 } }, Map.PassageTall);
+                            }
+                            switch (size)
+                            {
+                                case 8:
+                                    SetRect(loc[0], new int[,] { { -6, 0 }, { -1, 0 } }, Map.Pillar);
+                                    break;
+                                case 9:
+                                    SetRect(loc[0], new int[,] { { -6, 0 }, { -2, -2 } }, Map.Pillar);
+                                    SetRect(loc[0], new int[,] { { -6, 0 }, { 1, 1 } }, Map.Pillar);
+                                    break;
+                                case 11:
+                                    SetRect(loc[0], new int[,] { { -6, 0 }, { -4, -4 } }, Map.PassageBalcony);
+                                    SetRect(loc[0], new int[,] { { -6, 0 }, { 3, 3 } }, Map.PassageBalcony);
+                                    break;
+                            }
                         }
                         dungeon[loc[0], loc[1] - 6, loc[2]] = Map.PassageIP;
                         break;
@@ -561,122 +562,131 @@ public class DungeonGenerator : MonoBehaviour {
                 switch (dir)
                 {
                     case Direction.Down:
-                        for (int y = loc[2]; y < loc[2] + 4; y++)
+                        if (size == 1)
                         {
-                            if (size == 1)
-                                dungeon[loc[0], loc[1], y] = Map.Passage;
-                            else if (size < 8)
-                                for (int x = loc[1] - ((size / 2) - 1); x < loc[1] + (size / 2) + 1; x++)
-                                    dungeon[loc[0], x, y] = Map.Passage;
+                            SetRect(loc[0], new int[,] { { 0, 0}, { 0, 4 } }, Map.Passage);
+                        }
+                        else
+                        {
+                            if (size < 10)
+                            {
+                                SetRect(loc[0], new int[,] { { 1 - (size / 2), (size / 2) }, { 0, 4 } }, Map.Passage);
+                            }
                             else
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    if (size == 8)
-                                        if ((x == loc[1]) || (x == loc[1] + 1))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 9)
-                                        if ((x == loc[1] - 1) || (x == loc[1] + 2))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 10)
-                                        dungeon[loc[0], x, y] = Map.PassageTall;
-                                    else
-                                    {
-                                        if ((x < loc[1] - 1) || (x > loc[1] + 2))
-                                            dungeon[loc[0], x, y] = Map.PassageBalcony;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    }
+                            {
+                                SetRect(loc[0], new int[,] { { -3, 4 }, { 0, 4 } }, Map.PassageTall);
+                                SetRect(loc[0] + 1, new int[,] { { -3, 4 }, { 0, 4 } }, Map.PassageTall);
+                            }
+                            switch (size)
+                            {
+                                case 8:
+                                    SetRect(loc[0], new int[,] { { 0, 1 }, { 0, 4 } }, Map.Pillar);
+                                    break;
+                                case 9:
+                                    SetRect(loc[0], new int[,] { { -1, -1 }, { 0, 4 } }, Map.Pillar);
+                                    SetRect(loc[0], new int[,] { { 2, 2 }, { 0, 4 } }, Map.Pillar);
+                                    break;
+                                case 11:
+                                    SetRect(loc[0], new int[,] { { -3, -3 }, { 0, 4 } }, Map.PassageBalcony);
+                                    SetRect(loc[0], new int[,] { { 4, 4 }, { 0, 4 } }, Map.PassageBalcony);
+                                    break;
+                            }
                         }
                         break;
                     case Direction.Up:
-                        for (int y = loc[2]; y > loc[2] - 4; y--)
-                            if (size == 1)
-                                dungeon[loc[0], loc[1], y] = Map.Passage;
-                            else if (size < 8)
-                                for (int x = loc[1] - ((size / 2) - 1); x < loc[1] + (size / 2) + 1; x++)
-                                    dungeon[loc[0], x, y] = Map.Passage;
+                        if (size == 1)
+                        {
+                            SetRect(loc[0], new int[,] { { 0, 0 }, { -4, 0 } }, Map.Passage);
+                        }
+                        else
+                        {
+                            if (size < 10)
+                            {
+                                SetRect(loc[0], new int[,] { { 1 - (size / 2), (size / 2) }, { -4, 0 } }, Map.Passage);
+                            }
                             else
-                                for (int x = loc[1] - 3; x < loc[1] + 5; x++)
-                                    if (size == 8)
-                                        if ((x == loc[1]) || (x == loc[1] + 1))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 9)
-                                        if ((x == loc[1] - 1) || (x == loc[1] + 2))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 10)
-                                        dungeon[loc[0], x, y] = Map.PassageTall;
-                                    else
-                                    {
-                                        if ((x < loc[1] - 1) || (x > loc[1] + 2))
-                                            dungeon[loc[0], x, y] = Map.PassageBalcony;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    }
+                            {
+                                SetRect(loc[0], new int[,] { { -3, 4 }, { -4, 0 } }, Map.PassageTall);
+                                SetRect(loc[0] + 1, new int[,] { { -3, 4 }, { -4, 0 } }, Map.PassageTall);
+                            }
+                            switch (size)
+                            {
+                                case 8:
+                                    SetRect(loc[0], new int[,] { { 0, 1 }, { -4, 0 } }, Map.Pillar);
+                                    break;
+                                case 9:
+                                    SetRect(loc[0], new int[,] { { -1, -1 }, { -4, 0 } }, Map.Pillar);
+                                    SetRect(loc[0], new int[,] { { 2, 2 }, { -4, 0 } }, Map.Pillar);
+                                    break;
+                                case 11:
+                                    SetRect(loc[0], new int[,] { { -3, -3 }, { -4, 0 } }, Map.PassageBalcony);
+                                    SetRect(loc[0], new int[,] { { 4, 4 }, { -4, 0 } }, Map.PassageBalcony);
+                                    break;
+                            }
+                        }
                         break;
                     case Direction.Right:
-                        for (int x = loc[1]; x < loc[1] + 4; x++)
-                            if (size == 1)
-                                dungeon[loc[0], x, loc[2]] = Map.Passage;
-                            else if (size < 8)
-                                for (int y = loc[2] - (size / 2); y < loc[2] + (size / 2); y++)
-                                    dungeon[loc[0], x, y] = Map.Passage;
+                        if (size == 1)
+                        {
+                            SetRect(loc[0], new int[,] { { 0, 4 }, { 0, 0 } }, Map.Passage);
+                        }
+                        else
+                        {
+                            if (size < 10)
+                            {
+                                SetRect(loc[0], new int[,] { { 0, 4 }, { (size / -2), (size / 2) - 1 } }, Map.Passage);
+                            }
                             else
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    if (size == 8)
-                                        if ((y == loc[2]) || (y == loc[2] - 1))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 9)
-                                        if ((y == loc[2] - 2) || (y == loc[2] + 1))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 10)
-                                        dungeon[loc[0], x, y] = Map.PassageTall;
-                                    else
-                                    {
-                                        if ((y < loc[2] - 2) || (y > loc[2] + 1))
-                                            dungeon[loc[0], x, y] = Map.PassageBalcony;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    }
+                            {
+                                SetRect(loc[0], new int[,] { { 0, 4 }, { -4, 3 } }, Map.PassageTall);
+                            }
+                            switch (size)
+                            {
+                                case 8:
+                                    SetRect(loc[0], new int[,] { { 0, 4 }, { -1, 0 } }, Map.Pillar);
+                                    break;
+                                case 9:
+                                    SetRect(loc[0], new int[,] { { 0, 4 }, { -2, -2 } }, Map.Pillar);
+                                    SetRect(loc[0], new int[,] { { 0, 4 }, { 1, 1 } }, Map.Pillar);
+                                    break;
+                                case 11:
+                                    SetRect(loc[0], new int[,] { { 0, 4 }, { -4, -4 } }, Map.PassageBalcony);
+                                    SetRect(loc[0], new int[,] { { 0, 4 }, { 3, 3 } }, Map.PassageBalcony);
+                                    break;
+                            }
+                        }
                         break;
                     case Direction.Left:
-                        for (int x = loc[1]; x > loc[1] - 4; x--)
-                            if (size == 1)
-                                dungeon[loc[0], x, loc[2]] = Map.Passage;
-                            else if (size < 8)
-                                for (int y = loc[2] - (size / 2); y < loc[2] + (size / 2); y++)
-                                    dungeon[loc[0], x, y] = Map.Passage;
+                        if (size == 1)
+                        {
+                            SetRect(loc[0], new int[,] { { -4, 0 }, { 0, 0 } }, Map.Passage);
+                        }
+                        else
+                        {
+                            if (size < 10)
+                            {
+                                SetRect(loc[0], new int[,] { { -4, 0 }, { (size / -2), (size / 2) - 1 } }, Map.Passage);
+                            }
                             else
-                                for (int y = loc[2] - 4; y < loc[2] + 4; y++)
-                                    if (size == 8)
-                                        if ((y == loc[2]) || (y == loc[2] - 1))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 9)
-                                        if ((y == loc[2] - 2) || (y == loc[2] + 1))
-                                            dungeon[loc[0], x, y] = Map.Pillar;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    else if (size == 10)
-                                        dungeon[loc[0], x, y] = Map.PassageTall;
-                                    else
-                                    {
-                                        if ((y < loc[2] - 2) || (y > loc[2] + 1))
-                                            dungeon[loc[0], x, y] = Map.PassageBalcony;
-                                        else
-                                            dungeon[loc[0], x, y] = Map.Passage;
-                                    }
+                            {
+                                SetRect(loc[0], new int[,] { { -4, 0 }, { -4, 3 } }, Map.PassageTall);
+                                SetRect(loc[0] + 1, new int[,] { { -4, 0 }, { -4, 3 } }, Map.PassageTall);
+                            }
+                            switch(size)
+                            {
+                                case 8:
+                                    SetRect(loc[0], new int[,] { { -4, 0 }, { -1, 0 } }, Map.Pillar);
+                                    break;
+                                case 9:
+                                    SetRect(loc[0], new int[,] { { -4, 0 }, { -2, -2 } }, Map.Pillar);
+                                    SetRect(loc[0], new int[,] { { -4, 0 }, { 1, 1 } }, Map.Pillar);
+                                    break;
+                                case 11:
+                                    SetRect(loc[0], new int[,] { { -4, 0 }, { -4, -4 } }, Map.PassageBalcony);
+                                    SetRect(loc[0], new int[,] { { -4, 0 }, { 3, 3 } }, Map.PassageBalcony);
+                                    break;
+                            }
+                        }
                         break;
                 }
                 break;
@@ -1227,96 +1237,176 @@ public class DungeonGenerator : MonoBehaviour {
                 switch (dir)
                 {
                     case Direction.Down:
-                        for (int y = loc[2] + 1; y < loc[2] + 7; y++)
-                            for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                dungeon[loc[0], x, y] = Map.Room;
+                        SetRect(loc[0], new int[,] { { -1, 2 }, { 1, 6 } }, Map.Room);
 
-                        if (numExits >= 1)
-                            dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
-
-                        if (numExits == 2)
+                        switch (numExits)
                         {
-                            if (Random.Range(1, 3) == 1)
+                            case 1:
+                                switch (Random.Range(1, 4))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 4))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 4] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] + 4] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            default:
+                                dungeon[loc[0], loc[1], loc[2] + 7] = Map.Exit;
                                 dungeon[loc[0], loc[1] - 2, loc[2] + 4] = Map.Exit;
-                            else
                                 dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
+                                break;
                         }
-
-                        if (numExits >= 3)
-                        {
-                            dungeon[loc[0], loc[1] - 2, loc[2] + 4] = Map.Exit;
-                            dungeon[loc[0], loc[1] + 3, loc[2] + 4] = Map.Exit;
-                        }
-
                         break;
                     case Direction.Up:
-                        for (int y = loc[2] - 1; y > loc[2] - 7; y--)
-                            for (int x = loc[1] - 1; x < loc[1] + 3; x++)
-                                dungeon[loc[0], x, y] = Map.Room;
-
-                        if (numExits >= 1)
-                            dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
-
-                        if (numExits == 2)
+                        SetRect(loc[0], new int[,] { { -1, 2 }, { -6, -1 } }, Map.Room);
+                        
+                        switch (numExits)
                         {
-                            if (Random.Range(1, 3) == 1)
+                            case 1:
+                                switch (Random.Range(1, 4))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 4))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            default:
+                                dungeon[loc[0], loc[1], loc[2] - 7] = Map.Exit;
                                 dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
-                            else
                                 dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                                break;
                         }
-
-                        if (numExits >= 3)
-                        {
-                            dungeon[loc[0], loc[1] - 2, loc[2] - 3] = Map.Exit;
-                            dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
-                        }
-
                         break;
                     case Direction.Left:
-                        for (int x = loc[1] - 1; x > loc[1] - 7; x--)
-                            for (int y = loc[2] - 2; y < loc[2] + 2; y++)
-                                dungeon[loc[0], x, y] = Map.Room;
+                        SetRect(loc[0], new int[,] { { -6, -1 }, { -2, 1 } }, Map.Room);
 
-                        if (numExits >= 1)
-                            dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
-
-                        if (numExits == 2)
+                        switch (numExits)
                         {
-                            if (Random.Range(1, 3) == 1)
+                            case 1:
+                                switch (Random.Range(1, 4))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 4))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] - 4, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            default:
+                                dungeon[loc[0], loc[1] - 7, loc[2]] = Map.Exit;
                                 dungeon[loc[0], loc[1] - 4, loc[2] + 2] = Map.Exit;
-                            else
                                 dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
+                                break;
                         }
-
-                        if (numExits >= 3)
-                        {
-                            dungeon[loc[0], loc[1] - 4, loc[2] + 2] = Map.Exit;
-                            dungeon[loc[0], loc[1] - 4, loc[2] - 3] = Map.Exit;
-                        }
-
                         break;
                     case Direction.Right:
-                        for (int x = loc[1] + 1; x < loc[1] + 7; x++)
-                            for (int y = loc[2] - 2; y < loc[2] + 2; y++)
-                                dungeon[loc[0], x, y] = Map.Room;
+                        SetRect(loc[0], new int[,] { { 1, 6 }, { -2, 1 } }, Map.Room);
 
-                        if (numExits >= 1)
-                            dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
-
-                        if (numExits == 2)
+                        switch (numExits)
                         {
-                            if (Random.Range(1, 3) == 1)
+                            case 1:
+                                switch (Random.Range(1, 4))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                switch (Random.Range(1, 4))
+                                {
+                                    case 1:
+                                        dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 2] = Map.Exit;
+                                        break;
+                                    case 2:
+                                        dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                                        break;
+                                    case 3:
+                                        dungeon[loc[0], loc[1] + 3, loc[2] + 2] = Map.Exit;
+                                        dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                                        break;
+                                }
+                                break;
+                            default:
+                                dungeon[loc[0], loc[1] + 7, loc[2]] = Map.Exit;
                                 dungeon[loc[0], loc[1] + 3, loc[2] + 2] = Map.Exit;
-                            else
                                 dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
+                                break;
                         }
-
-                        if (numExits >= 3)
-                        {
-                            dungeon[loc[0], loc[1] + 3, loc[2] + 2] = Map.Exit;
-                            dungeon[loc[0], loc[1] + 3, loc[2] - 3] = Map.Exit;
-                        }
-
                         break;
                 }
                 break;
@@ -1328,10 +1418,9 @@ public class DungeonGenerator : MonoBehaviour {
                 switch (dir)
                 {
                     case Direction.Down:
-                        for (int y = loc[2] + 1; y < loc[2] + 5; y++)
-                            for (int x = loc[1] - 2; x < loc[1] + 4; x++)
-                                dungeon[loc[0], x, y] = Map.Room;
+                        SetRect(loc[0], new int[,] { { -2, 3 }, { 1, 4 } }, Map.Room);
 
+                        switch(numExits())
                         if (numExits >= 1)
                             dungeon[loc[0], loc[1], loc[2] + 5] = Map.Exit;
 
