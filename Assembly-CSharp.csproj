@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\DestroyMe.cs" />
+    <Compile Include="Assets\DisplayMap.cs" />
     <Compile Include="Assets\DungeonGenerator.cs" />
     <Compile Include="Assets\EncounterDropdown.cs" />
     <Compile Include="Assets\Environment.cs" />
